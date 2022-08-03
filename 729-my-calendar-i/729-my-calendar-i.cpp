@@ -1,4 +1,4 @@
-class MyCalendar {
+/* class MyCalendar {
     
    private: map<int,int> m;
 public:
@@ -21,6 +21,26 @@ public:
             }
         }
         return true;
+    }
+};
+*/
+
+
+
+
+class MyCalendar {
+    private: vector<pair<int, int>> m; 
+public:
+    
+    bool book(int start, int end) {
+        
+        for(auto itr : m)
+        {
+            if(itr.first < end && start < itr.second)
+                return false;  
+            }
+       m.push_back({start, end});
+       return true;
     }
 };
 
