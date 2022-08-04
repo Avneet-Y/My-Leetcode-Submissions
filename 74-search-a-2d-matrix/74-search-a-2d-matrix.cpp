@@ -15,8 +15,8 @@
 //     }
 // };
 
-
-class Solution {
+//O(m+n)
+/*  class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
         int m=matrix.size();
@@ -33,5 +33,29 @@ public:
                 j--;
         }
         return false;
+    }
+};
+*/
+
+
+//O(log(mn))
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int m=matrix.size();
+        int n=matrix[0].size();
+        int start = 0, end = m*n - 1;
+        while(start <= end)
+        {
+            int mid = start + (end -start)/2;
+            if(matrix[mid / n][mid % n] == target)  //row index=[ele no.(from 0)/totalcols] 
+                return true;                       //col index = [ele no. % total cols]
+            if(matrix[mid / n][mid % n] < target)   //target in right side
+                start = mid+1;
+            else
+                end = mid-1;                //target in left side
+        }
+        return false;
+        
     }
 };
