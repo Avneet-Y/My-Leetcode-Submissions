@@ -9,17 +9,14 @@ public:
             m[nums[i]]++;
         }
 
-        int count = 0;
         vector<int> ans;
         int ele;
         for(auto i : m)
          {
             if(i.second > n / 3)
             {
-                count = 1;
                 ele = i.first;
                 ans.push_back(ele);
-                // break;
             }
         }
         return ans;
