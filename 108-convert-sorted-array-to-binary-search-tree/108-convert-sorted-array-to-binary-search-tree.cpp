@@ -9,6 +9,7 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+/*
 class Solution {
 public:
     
@@ -28,5 +29,31 @@ public:
         node->left = bst(nums, left, mid-1);
         node->right  = bst(nums, mid+1, right);
         return node;
+    }
+};
+*/
+
+class Solution {
+public:
+    
+    TreeNode* sortedArrayToBST(vector<int>& nums)
+    {
+        int left = 0;
+        int right = nums.size()-1;
+        return bst(nums,left,right);
+    }
+    
+    TreeNode* bst(vector<int> nums,int left,int right)
+    {
+        TreeNode* node;
+        if(left <= right)
+        {
+            int mid = (left+right) / 2;
+            node = new TreeNode(nums[mid]);
+            node->left = bst(nums,left,mid-1);
+            node->right = bst(nums,mid+1,right);
+            return node;
+        }
+        return NULL;
     }
 };
