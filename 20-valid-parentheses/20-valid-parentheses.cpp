@@ -14,14 +14,14 @@ public:
                 st.push(s[i]);
             else
             {
-                if(st.empty()==true)
+                if(st.empty()==true)   //if( s= )(  then no push before so empty   )
                     return false;
-                else if(isMatching(st.top(), s[i]) == false)
+                else if(isMatching(st.top(), s[i]) == false)  //if stack top current brac
                     return false;
                 else
                     st.pop();
             }
         }
-        return (st.empty()==true);
+        return (st.empty()==true);       //if s = ((()) then ( remain so  
     }
 };
