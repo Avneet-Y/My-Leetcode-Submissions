@@ -3,7 +3,7 @@ public:
     int numberOfWeakCharacters(vector<vector<int>>& properties) {
         int n = properties.size();
     
-        sort(properties.begin(), properties.end(), [](const vector<int>& a, const vector<int>& b)
+        sort(properties.begin(), properties.end(), []( vector<int>& a, vector<int>& b)
              {
                  if( a[0] == b[0]) 
                     return (a[1] > b[1]); 
