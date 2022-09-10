@@ -12,7 +12,7 @@ public:
         priority_queue<pair<int, char>> maxh;
         for(auto it : mp)
         {
-            maxh.push({it.second, -1*(it.first)});
+            maxh.push({it.second, it.first});
         }
         while(maxh.size() !=0 )
         {
@@ -20,7 +20,7 @@ public:
             int ele = maxh.top().second;
             for(int i=1; i<=freq; i++)
             {
-                ans.push_back(-1*(ele));
+                ans.push_back(ele);
             }
             maxh.pop();
         }
