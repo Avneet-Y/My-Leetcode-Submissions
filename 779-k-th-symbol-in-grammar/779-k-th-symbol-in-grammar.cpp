@@ -5,14 +5,14 @@ public:
          {
             return 0;
         }
-        int prev=kthGrammar(n-1,(k+1)/2);
-        if(k%2)
+        int mid  = pow(2, n-1)/2;
+        if(k <= mid)
         {
-            return prev;
+            return kthGrammar(n-1, k);
         }
         else
         {
-            return !prev;
+            return !(kthGrammar(n-1, k-mid));
         }
         return -1;
     }
