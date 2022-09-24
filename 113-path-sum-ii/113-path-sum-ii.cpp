@@ -20,7 +20,10 @@ public:
             ans.push_back(temp);
             return;
         }
-        
+        if(root->left == NULL && root->right == NULL)
+        {
+            return;
+        }
 		
         if(root -> left != NULL)
             solve(root->left, target, curr_Sum, temp, ans);
