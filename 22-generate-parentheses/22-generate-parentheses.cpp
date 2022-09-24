@@ -1,33 +1,33 @@
 class Solution {
 public:
-    void solve(int op, int cp, string output, vector<string> &vec)
+    
+    void solve(int open ,int close, string output, vector<string> &vec)
     {
-         if(op == 0 && cp == 0)
-         {
+        if(open == 0 && close == 0)
+        {
             vec.push_back(output);
             return;
         }
-
-        if(op != 0)
+        if(open != 0)
         {
-           string op1 = output + '(';
-           solve(op-1 , cp, op1, vec);
+            string op1 = output;
+            op1.push_back('(');
+            solve(open - 1, close, op1, vec);
+            
         }
-
-        if(cp > op)
+        if(close > open)
         {
-            string op2 = output + ')';
-            solve(op, cp-1, op2, vec);
+            string op2 = output;
+            op2.push_back(')');
+            solve(open, close - 1, op2, vec);
         }
     }
-        
-    
     vector<string> generateParenthesis(int n) {
         vector<string> vec;
-        int op = n;
-        int cp = n;
+        int open = n;
+        int close = n;
         string output = "";
-        solve(op, cp, output, vec);
+        solve(open, close, output, vec);
         return vec;
     }
 };
