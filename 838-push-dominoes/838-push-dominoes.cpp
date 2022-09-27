@@ -1,3 +1,4 @@
+/*
 class Solution {
 public:
     string pushDominoes(string dominoes) {
@@ -78,5 +79,60 @@ public:
             
         }
         return ans;
+    }
+};
+*/
+
+class Solution {
+public:
+    string pushDominoes(string dominoes) {
+        int n = dominoes.size();
+        int left = 0;
+        int right = 0;
+        while(right < n)
+        {
+            if(dominoes[right] == '.')
+            {
+                right++; 
+                continue;
+            }
+            if(dominoes[right] == dominoes[left] || (dominoes[left] == '.' && dominoes[right] == 'L'))
+            {
+                int i = left;
+                while(i < right)
+                {
+                    dominoes[i] = dominoes[right];
+                    i++;
+                }
+            }
+            else if(dominoes[left] == 'R' && dominoes[right] == 'L')
+            {
+                int i = left;
+                int j = right;
+                while(i < j)
+                {
+                    dominoes[i] = 'R';
+                    dominoes[j] = 'L';
+                    i++;
+                    j--;
+                }
+            }
+            
+            left = right;
+            right++;
+        }
+        
+        // if  last is 'R' replace all right to it with 'R'
+        
+        if(dominoes[left] == 'R')
+        {
+            int i = left;
+            while(i < n)
+            {
+                dominoes[i] = 'R';
+                i++;
+            }
+        }
+        return dominoes;
     }
 };
