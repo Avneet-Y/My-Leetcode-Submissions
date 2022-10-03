@@ -11,6 +11,7 @@ public:
                 mini = min(neededTime[i], neededTime[i-1]);
                 time += mini;
                 neededTime[i] = max(neededTime[i], neededTime[i - 1]);
+                // We wanna maintain the current maximum neededTime. Agar same color group hai to maximum ko chor ke sabko htana pdega
             }
         }
         
