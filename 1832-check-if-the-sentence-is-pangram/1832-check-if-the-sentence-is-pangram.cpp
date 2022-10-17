@@ -6,18 +6,31 @@ public:
         //     check[it] = 1;
         // return check.size()==26; 
         
-        int n = sentence.size();
-        if(n < 26)
-            return false;
-        unordered_map<char, int> check;
-     
-        for(int i=0; i<n; i++)
-            check[sentence[i]]++;
-    
-        if(check.size() == 26)
-            return true;
-        else
-            return false;
         
+         int n = sentence.size();
+//         if(n < 26)
+//             return false;
+//         unordered_map<char, int> check;
+     
+//         for(int i=0; i<n; i++)
+//             check[sentence[i]]++;
+    
+//         if(check.size() == 26)
+//             return true;
+//         else
+//             return false;
+        unordered_map<char, int> check;
+        for(int i =0 ; i < n; i++)
+        {
+            check[sentence[i]]++;
+        }
+        for(char i = ' a'; i <= 'z'; i++)
+        {
+            if(check[i] == 0)
+            {
+                return false;
+            }
+        }
+      return true;  
     }
 };
