@@ -3,12 +3,13 @@ public:
     string countAndSay(int n) {
         string ans = "1";
         string curr;
+        int count = 0;;
         while(--n)
         {
             curr = "";
             for(int i=0; i<ans.size(); i++)
             {
-                int count = 1;
+                count = 1;
                 while(i < ans.size() - 1 && ans[i] == ans[i+1])
                 {
                     count++;
