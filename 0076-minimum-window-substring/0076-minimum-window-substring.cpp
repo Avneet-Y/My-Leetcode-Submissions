@@ -30,7 +30,7 @@ public:
 
             while (count == 0)
             {
-                if (mini > j - i)
+                if (mini > j - i + 1)
                 {
                     mini = min(mini, j - i + 1);
                     ans = s.substr(i, j - i + 1);
