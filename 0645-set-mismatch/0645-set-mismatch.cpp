@@ -21,27 +21,49 @@ public:
         
         // Using xor
         
-        int n = nums.size();
-        set<int> s(nums.begin(), nums.end());
-        int xorele = 0;
-        for (auto i : s)
-        {
-            xorele ^= i;
-        }
-        int repeat = xorele;
+//         int n = nums.size();
+//         set<int> s(nums.begin(), nums.end());
+//         int xorele = 0;
+//         for (auto i : s)
+//         {
+//             xorele ^= i;
+//         }
+//         int repeat = xorele;
 		
-        for (int i = 0; i < n; i++)
-        {
-            repeat ^= nums[i];
-        }
+//         for (int i = 0; i < n; i++)
+//         {
+//             repeat ^= nums[i];
+//         }
         
-		for (int i = 1; i <= n; i++)
+// 		for (int i = 1; i <= n; i++)
+//         {
+//             xorele ^= i;
+//         }
+//         int missing = xorele;
+//         ans.push_back(repeat);
+//         ans.push_back(missing);
+//         return ans;
+        
+        
+        //Using sum
+        sort(nums.begin(), nums.end());
+	    int repeat = -1;
+        int n = nums.size();
+	    for (int i = 0; i < n - 1; i++) 
         {
-            xorele ^= i;
-        }
-        int missing = xorele;
-        ans.push_back(repeat);
-        ans.push_back(missing);
+		    if (nums[i] == nums[i + 1]) 
+            {
+			    repeat = nums[i];
+			    break;
+		    }
+	    }
+	    int sum = n * (n + 1) / 2;
+	    for (int i = 0; i < n; i++) 
+        {
+		    sum -= nums[i];
+	    } 
+        ans.push_back(repeat); 
+        ans.push_back(sum + repeat);
         return ans;
     }
 };
