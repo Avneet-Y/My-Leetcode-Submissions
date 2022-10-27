@@ -45,12 +45,13 @@ int lcs(string str1, string str2, int m, int n)
     }
 
 
-int minDeletions(string str, int n) { 
-        int m = str.size();
+int minDeletions(string str, int m) { 
+        
         string st2 = str;
         reverse(st2.begin(), st2.end());
         int ans, lcslen;
-        lcslen = lcs(str, st2, m, m);
-        ans = m - lcslen;
+        int n = st2.size();
+        lcslen = lcs(str, st2, m, n);
+        ans = n - lcslen;
         return ans; 
 } 
