@@ -29,7 +29,7 @@ public:
         
         for(int k = i; k <= j-1; k++)
         {
-            if(ispalindrome(s, i, k))
+            if(ispalindrome(s, i, k) == true)
             {
                 int tempans = solve(s, k+1, j) + 1;
                 mini = min(mini, tempans);
