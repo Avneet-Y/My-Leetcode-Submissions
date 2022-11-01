@@ -1,3 +1,5 @@
+//--
+/*
 class Solution {
 public:
     
@@ -35,5 +37,37 @@ public:
                 }
         }
         return ans;
+    }
+};
+*/
+
+
+//Recursive
+class Solution {
+public:
+    
+    void countPalindrome(string s, int i , int j, int &count)
+    {
+        while(i >= 0 && j < s.length())
+        {
+            if(s[i] == s[j])
+            {
+                i--;
+                j++;
+                count++;
+            }
+            else 
+                return;
+        }
+    }
+    
+    int countSubstrings(string s) {
+        int count = 0;
+        for(int i = 0; i < s.length(); i++)
+        {
+            countPalindrome(s, i, i, count);
+            countPalindrome(s, i, i+1, count);
+        }
+        return count;
     }
 };
