@@ -4,37 +4,22 @@ public:
         int n = grid.size(), m = grid[0].size();
         vector<int> ans(m);
 
-        for(int c = 0; c < m; c++) 
+        for(int j = 0; j < m; j++) 
         {
-            int i = 0, j = c, flag = 0;
-            while(i < n) 
+            int currpos = j;
+            int newpos = -1;
+            for(int i = 0; i < n; i++)
             {
-                if(grid[i][j] == 1) 
+                newpos = currpos + grid[i][currpos];
+                
+                if(newpos < 0 || newpos >= m || grid[i][currpos] != grid[i][newpos])
                 {
-                    if(j == m - 1 || grid[i][j + 1] == -1) 
-                    {
-                        flag = 1;
-                        break;
-                    }
-                    i++;
-                    j++;
+                    currpos = -1;
+                    break;
                 }
-                else 
-                {
-                    if(j == 0 || grid[i][j - 1] == 1) 
-                    {
-                        flag = 1; 
-                        break;
-                    }
-                    i++;
-                    j--;
-                }
+                currpos = newpos;
             }
-             if(flag) 
-                 ans[c] = -1;
-            else
-                 ans[c] = j;
-             
+            ans[j] = currpos;
         }
         return ans;
     }
