@@ -14,21 +14,21 @@ public:
             string rev = st;
             reverse(st.begin(), st.end());
             
-            if(rev != st && mp[rev]>0 && mp[st]>0)
+            if(rev != st && mp[rev]>0 && mp[st]>0) //lc!=cl, mp[lc] = 1, mp[cl] = 1;
             {
-                mp[rev]--;
-                mp[st]--;
-                ans += 4;
+                mp[rev]--;                         //mp[lc]=0
+                mp[st]--;                          //mp[cl] = 0
+                ans += 4;                          // ans=lc+cl 
             }
-            else if(rev == st && mp[st]>1)
+            else if(rev == st && mp[st]>1)        //if xx,xx,xx given 
             {
-                mp[rev] -= 2;
-                ans += 4;
+                mp[rev] -= 2;                  //mp[xx] = 1 and  even no. wale hi push 
+                ans += 4;                       //xxxx ans me pushed
             }
-            else if(rev == st && mp[st]>0 && flag == false)
+            else if(rev == st && mp[st]>0 && flag == false) //gg==gg, mp[gg]=1,(xx case ^)
             {
-                mp[st]--;
-                ans += 2;
+                mp[st]--;                          //mp[gg]=0,    mp[xx] =0
+                ans += 2;                          //ans+=gg,     ans me xx push     
                 flag = true;
             }
         }
