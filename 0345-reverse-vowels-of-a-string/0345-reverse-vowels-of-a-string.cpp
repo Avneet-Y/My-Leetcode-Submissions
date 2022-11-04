@@ -1,3 +1,5 @@
+/*
+
 class Solution {
 public:
     string reverseVowels(string s) {
@@ -28,5 +30,35 @@ public:
             j--;
         }
         return s;
+    }
+};
+
+*/
+
+
+class Solution {
+public:
+    string reverseVowels(string s) {
+        
+        int i = 0;
+        int j = s.size() - 1;
+        unordered_set<char> st;
+        st.insert({'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'});
+        while(i < j)
+        {
+            while(!st.count(s[i]) && i < j)
+            {
+                i++;       
+            }
+            while(!st.count(s[j]) && i < j)
+            {
+                j--;       
+            }
+               swap(s[i], s[j]);
+               i++;
+               j--;
+          
+        }
+               return s;
     }
 };
