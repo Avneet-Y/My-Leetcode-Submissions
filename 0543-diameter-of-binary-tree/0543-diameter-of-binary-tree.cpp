@@ -35,23 +35,23 @@
 class Solution {
 public:
 
-    int solve(TreeNode* root, int &ans)
+    int solve(TreeNode* root, int &res)
     {
         if(root == nullptr)
             return 0;
-        int lf = solve(root->left, ans);
-        int rt = solve(root->right, ans);
-        int height = 1 + max(lf, rt);
-        ans = max(ans, 1 + lf + rt);
-        return height;
+        int lf = solve(root->left, res);
+        int rt = solve(root->right, res);
+        int temp = 1 + max(lf, rt);
+        res = max(1 + lf + rt, res);
+        return temp;
     }
     
     
     int diameterOfBinaryTree(TreeNode* root) {
         if(root == NULL)
             return 0;
-        int ans = INT_MIN;
-        int x = solve(root, ans);
-        return ans-1;
+        int res = INT_MIN;
+        int x = solve(root, res);
+        return res-1;           //as we are not including the starting node
     }
 };
