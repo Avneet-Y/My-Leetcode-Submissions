@@ -25,6 +25,7 @@ public:
             small.pop();
             large.push(ele);
         }
+         // if the size of larger is greater than smaller by 2 then push the top of larger into smaller
         else if(large.size() > small.size() + 1)
         {
             int ele = large.top(); 
