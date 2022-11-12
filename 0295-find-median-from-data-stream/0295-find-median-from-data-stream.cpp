@@ -66,8 +66,8 @@ public:
 class MedianFinder {
 public:
     
-    priority_queue<int> maxh;   //min heap left  
-    priority_queue<int, vector<int>, greater<int>> minh; //max heap right 
+    priority_queue<int> maxh;   //max heap left  
+    priority_queue<int, vector<int>, greater<int>> minh; //min heap right 
     MedianFinder() {
         
     }
