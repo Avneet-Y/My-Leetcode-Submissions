@@ -1,4 +1,4 @@
-/* Using array
+/* Using array/dp
 
 class Solution {
 public:
