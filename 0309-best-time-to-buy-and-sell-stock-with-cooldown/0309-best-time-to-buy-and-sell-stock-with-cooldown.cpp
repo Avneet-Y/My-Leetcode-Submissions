@@ -1,3 +1,4 @@
+/*
 class Solution {
 public:
     int findMax(vector<int>& prices, int curr, int n, vector<int> &dp)
@@ -26,5 +27,26 @@ public:
         int n = prices.size();
         vector<int> dp(n+1,-1);
         return findMax(prices, 0, n, dp);
+   }
+};
+*/
+
+
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        if(n == 0) 
+             return 0;
+        int hold = -prices[0], cash = 0, cool = 0;
+        for(int i=1; i<n; i++)
+        {
+            int prev_hold = hold;
+            hold = max(hold, cool - prices[i]);
+            cool = max(cool, cash);
+            cash = max(cash,prev_hold + prices[i]);
+        }
+        return cash;
     }
 };
