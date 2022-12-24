@@ -21,6 +21,8 @@ public:
 };
 */
 
+
+//tech dose divide & conquer sln
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
@@ -33,19 +35,19 @@ public:
         if(n == 0)
             return 0;
         
-        for(int i=1; i<n; i++)
+        for(int i=1; i<n; i++)  //buy on min price and maintain left arr with lmin 
         {
-            left[i] = max(left[i-1], prices[i] - lmin);
-            lmin = min(lmin, prices[i]);
+            left[i] = max(left[i-1], prices[i] - lmin);  //max between prev and profit 
+            lmin = min(lmin, prices[i]);   //if lower than lmin found then make it lmin
         }
-        for(int i=n-2; i>=0; i--)
+        for(int i=n-2; i>=0; i--)  //make last ele as sell as we can't buy on that (rmax) 
         {
-            right[i] = max(right[i+1], rmax - prices[i]);
-            rmax = max(rmax, prices[i]);
+            right[i] = max(right[i+1], rmax - prices[i]);  //right arr max b/w rmax, profit
+            rmax = max(rmax, prices[i]);  //if more max found replace it
         }
         int profit = right[0];
         
-        for(int i=1; i<n; i++)
+        for(int i=1; i<n; i++) //find profit by add left and right array
         {
             profit = max(profit, left[i-1] + right[i]);
         }
