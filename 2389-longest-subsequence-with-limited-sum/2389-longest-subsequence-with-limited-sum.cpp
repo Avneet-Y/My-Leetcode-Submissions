@@ -4,7 +4,7 @@ public:
         
         int n = nums.size();
         int m = queries.size();  
-        vector<int> answer(m);
+        vector<int> answer;
         sort(nums.begin(), nums.end());
         
         for(int i=0; i<m; i++)
@@ -21,7 +21,7 @@ public:
                 else 
                     break;
             }
-            answer[i] = count;
+            answer.push_back(count);
         }
         return answer;                                                             
     }
