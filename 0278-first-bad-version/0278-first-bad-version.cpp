@@ -18,7 +18,6 @@ public:
             }
             else
                 start = mid + 1;
-            
         }
         return bad;
     }
