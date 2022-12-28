@@ -1,3 +1,4 @@
+/*
 class Solution {
 public:
     int findMin(vector<int>& nums) {
@@ -48,5 +49,40 @@ public:
                 end = mid - 1;
         }
         return nums[start];
+    }
+};
+*/
+
+
+
+
+
+class Solution {
+public:
+     int solve(vector<int> &nums, int start, int end)
+     {
+         int prev, next;
+         int n = nums.size();
+         while(start <= end)
+         {
+             int mid = start + (end-start)/2;
+             if(nums[start] <= nums[end])
+                return nums[start];
+             prev = (mid - 1 + n) % n;
+             next = (mid + 1) % n;
+             if(nums[mid] <= nums[prev] && nums[mid] <= nums[next])
+                 return nums[mid];
+             else if(nums[start] <= nums[mid])
+                 start = mid + 1;
+             else if(nums[mid] <= nums[end])
+                 end = mid - 1;
+         }
+         return nums[start];
+     }
+    
+    int findMin(vector<int>& nums) {
+        int n = nums.size();
+        int ans = solve(nums, 0, n-1);
+        return ans;
     }
 };
