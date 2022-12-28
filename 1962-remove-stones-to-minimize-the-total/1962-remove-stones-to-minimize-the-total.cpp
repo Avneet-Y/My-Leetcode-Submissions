@@ -11,8 +11,8 @@ public:
         for(int i=0; i<k; i++)
         {
             int ele = maxh.top();
-            maxh.pop();
-            maxh.push(ele - (ele/2));
+            maxh.pop();                 //Choose any piles[i] and
+            maxh.push(ele - (ele/2));   //remove floor(piles[i]/2) stones from it.
         }
         while(maxh.size() != 0)
         {
