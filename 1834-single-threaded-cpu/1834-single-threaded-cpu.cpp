@@ -1,27 +1,38 @@
 class Solution {
 public:
     vector<int> getOrder(vector<vector<int>>& tasks) {
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-        long n = tasks.size();
-        long time = 0, i=0;
-        for(int i=0; i<n; i++)
-            tasks[i].push_back(i);
-        sort(tasks.begin(), tasks.end());
-        vector<int> ret;
-        while(i<n || !pq.empty())
+        int n = tasks.size();
+        for(int i=0; i<n; i++) 
+            tasks[i].push_back(i); 
+        sort(tasks.begin(),tasks.end());
+        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+        vector<int> ans;
+        
+        int i =0;
+        long long t = tasks[0][0]; 
+        
+        while(!pq.empty() or i<n)
         {
-            if(pq.empty())
-                time = max(time, (long)tasks[i][0]);
-            while(i<n && time>=tasks[i][0])
-            {
-                pq.push(make_pair(tasks[i][1], tasks[i][2]));
+            while(i<n && t >= tasks[i][0]) //keep pushing tasks into queue while the enqueueing time of next task is lower than the current time!!
+             {
+                pq.push({tasks[i][1],tasks[i][2]});
                 i++;
+             }
+           
+            if(pq.empty()) //queue empty and still the outer loop is running ,we still have tasks and also the queue is empty, CPU is idle from 't'(curr time) t0 tasks[i][0](next enqueueing time)!!
+            {
+                t = tasks[i][0];
             }
-            pair<int, int> A = pq.top();
-            pq.pop();
-            time += A.first;
-            ret.push_back(A.second);
+            
+            else  //queue not empty, next enqueue time>curr time!! do the task having shortest burst time until our current time is equal of greater than the enqueueing time of next task
+            {
+               pair<int,int> p = pq.top();
+               pq.pop();
+               ans.push_back(p.second);
+               t += p.first; 
+            }  
         }
-        return ret;
+        return ans;
+
     }
 };
