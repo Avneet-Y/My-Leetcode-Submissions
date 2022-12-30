@@ -1,30 +1,27 @@
 class Solution {
 public:
-    vector<vector<int>> ans;
-    void dfs(int s,int d, vector<vector<int>> graph, vector<int>&v)
+    void dfs(vector<vector<int>>&graph, vector<vector<int>>&ans, vector<int>&path,int curr)
     {
-        if(s == d)
+        path.push_back(curr);
+        if(curr == graph.size()-1)
         {
-            ans.push_back(v);
-            return;
+            ans.push_back(path);
         }
-        
-        for(auto i : graph[s])
+        else
         {
-            v.push_back(i);
-            dfs(i, d, graph, v);
-            v.pop_back();
+            for(auto x : graph[curr])
+            {
+                dfs(graph, ans, path, x);
+            }
         }
+        path.pop_back();
     }
+    
     vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
-        
-        int source=0;
-        int destination = graph.size()-1;
-        vector<int> v={0};
-        for(int i=0; i<1; i++)
-        {
-            dfs(i, destination, graph, v);
-        }
+        vector<vector<int>> ans;
+        vector<int> path;
+        dfs(graph, ans, path, 0);
         return ans;
+        
     }
 };
