@@ -36,6 +36,7 @@ public:
         }
         return start;
     }
+    
     int findPeakElement(vector<int>& nums) {
         int n = nums.size();
         int ans = solve(nums, 0, n-1, n);
