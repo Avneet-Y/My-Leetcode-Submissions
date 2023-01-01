@@ -76,7 +76,7 @@ public:
             }
             else
             {
-                if(st.count(vec[i]) > 0)
+                if(st.count(vec[i]) > 0)  //if already present in set
                     return false;
                 mp[pattern[i]] = vec[i];
                 st.insert(vec[i]);
