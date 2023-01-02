@@ -1,19 +1,21 @@
+//similar to allocate minimum number of pages
+
 class Solution {
 public:
     
     bool isvalid(vector<int>& weights, int n, int days, int maxi)
     {
-        int temp = 1;
+        int tempdays = 1;
         int sum = 0;
         for(int i=0; i<n; i++)
         {
             sum += weights[i];
             if(sum > maxi)
             {
-                temp++;
+                tempdays++;
                 sum = weights[i];
             }
-            if(temp > days)
+            if(tempdays > days)
                 return false;
         }
         return true;
