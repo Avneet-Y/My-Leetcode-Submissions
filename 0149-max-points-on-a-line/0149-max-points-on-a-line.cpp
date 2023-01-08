@@ -1,30 +1,32 @@
 class Solution {
 public:
     int maxPoints(vector<vector<int>>& points) {
-        int n = points.size();
-        if(n <= 2) 
-            return n;
-        int ans = 0;
+        sort(points.begin(), points.end());
+        int n = points.size(), ct = 0;
         for(int i=0; i<n; i++)
         {
+            unordered_map<double, int> mp;
+            int yaxis = 0;
             for(int j=i+1; j<n; j++)
             {
-
-                int x1 = points[i][0];
-                int x2 = points[j][0];
-                int y1 = points[i][1];
-                int y2 = points[j][1];    
-                int total = 2;
-                for(int k=0; k<n && k != i && k != j; k++)
-                {    
-                    int x = points[k][0];
-                    int y = points[k][1];
-                    if((y2 - y1)*(x - x1) == (x2 - x1)*(y - y1))
-                        total++;
+                int dy = points[j][1] - points[i][1];
+                int dx = points[j][0] - points[i][0];
+                if(dx==0)
+                {
+                    yaxis++;
                 }
-                ans = max(ans, total);
+                else
+                {
+                    double slope = (double)dy/dx;
+                    mp[slope]++;
+                }
             }
+            for(auto &it : mp)
+            {
+                ct = max(ct, it.second);
+            }
+            ct = max(ct, yaxis);
         }
-        return ans;
+        return ct+1;
     }
 };
