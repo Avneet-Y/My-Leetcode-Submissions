@@ -1,4 +1,6 @@
 /*
+//Tabulation
+
 class Solution {
 public:
     
@@ -36,6 +38,8 @@ public:
     }
 };
 */
+
+//Memoized
 
 class Solution {
 public:
