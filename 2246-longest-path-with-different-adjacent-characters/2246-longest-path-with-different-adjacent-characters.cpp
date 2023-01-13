@@ -10,7 +10,6 @@ public:
         longestPathDfs(0,adj,s,ans);
         return ans;
     }
-private:
     int longestPathDfs(int currNode,vector<vector<int>>&adjacentNodes,string &stringInput,int &maxLength)
     {
         int currMax = 0;
