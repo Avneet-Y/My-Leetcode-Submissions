@@ -8,7 +8,7 @@ public:
             flip += (s[i]-'0');  // count '1's in given string
         }
         minflip = flip;
-        for(int i = n-1; i > -1; i --)
+        for(int i = n-1; i >=0 ; i --)
         {
             if(s[i] == '1') // considered flip in last sequence
                 flip -= 1;
