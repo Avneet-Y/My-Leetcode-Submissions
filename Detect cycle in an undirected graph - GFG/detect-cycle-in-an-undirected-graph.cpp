@@ -18,7 +18,7 @@ class Solution {
             q.pop();
             for(auto it : adj[node])
             {
-                if(!visited[it])
+                if(visited[it] == 0)
                 {
                     visited[it] = 1;
                     q.push({it, node});
