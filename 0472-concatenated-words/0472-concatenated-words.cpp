@@ -1,36 +1,39 @@
 class Solution {
 public:
     
-    map<string,int> m;
-    bool cal(string &str,int idx,int cnt)
+   int solve(set<string>&st, string& word, int start)
     {
-        if(idx == str.size())
-            return cnt>1;  
-        string tmp = "";
-        for(int i=idx; i<str.size(); i++)
+        if (start >= word.size()) 
+            return 0;
+        string strTillPivot = "";
+        int mx = INT_MIN;
+        for (int pivotIdx = start; pivotIdx < word.size(); pivotIdx++)
         {
-            tmp += str[i];
-            if(m.find(tmp) != m.end())
-            {
-                bool flag = cal(str, i+1, cnt+1);
-                if(flag)
-                    return true;
-            }
+            strTillPivot.push_back(word[pivotIdx]);
+            if (st.find(strTillPivot) == st.end()) 
+                continue;
+            
+            int nextPartitionCount = solve(st, word, pivotIdx + 1);
+            if (nextPartitionCount == INT_MIN) 
+                continue;
+			
+            int totalPartitions = 1 + nextPartitionCount;
+            mx = max(mx, totalPartitions);
         }
-        return false;
+        return mx;
     }
-   vector<string> findAllConcatenatedWordsInADict(vector<string>& words) {
-        for(auto x : words)
+    vector<string> findAllConcatenatedWordsInADict(vector<string>& words) 
+    {
+        set<string>st;
+        for (string& word : words) 
+            st.insert(word);
+        vector<string>ans;
+        for (string word : words)
         {
-            m[x]++;
+            int partitionCount = solve(st, word, 0);
+            if (partitionCount >= 2) 
+                ans.push_back(word); 
         }
-        vector<string> ans;
-        for(auto x : words)
-        {
-            bool flag = cal(x, 0, 0);
-            if(flag)
-                ans.push_back(x);
-        }
-        return ans; 
+        return ans;
     }
 };
