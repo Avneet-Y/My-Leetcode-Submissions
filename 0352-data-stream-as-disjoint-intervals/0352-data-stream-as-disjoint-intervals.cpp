@@ -1,32 +1,37 @@
 class SummaryRanges {
 public:
-    vector<bool> arr;
-    int mx = -1;
-    SummaryRanges() 
-    {
-        arr = vector<bool>(10001, false);
+    set<int> s;
+    
+    SummaryRanges() {
     }
     
-    void addNum(int value) 
+    void addNum(int val) 
     {
-        arr[value] = true;
-        mx = max(value, mx);
+        s.insert(val);
     }
     
     vector<vector<int>> getIntervals() {
-        vector<vector<int>> ans;
-        for(int i = 0; i <= mx; i++)
+        vector<vector<int>> vec;
+        int curr = -1;
+        int t = -1;
+        for(auto x : s)
         {
-            int j = i;
-            while(j <= mx && arr[j])
+            if(curr == -1)
             {
-                j++;
+                t = x;
+                curr = x;
             }
-            if(arr[i])
-                ans.push_back(vector<int>{i,j-1});
-            i = j;
+            else if(curr+1 == x)
+                curr++;
+            else
+            {
+                vec.push_back({t,curr});
+                t = x;
+                curr = x;
+            }
         }
-        return ans;
+        vec.push_back({t, curr});
+        return vec;
     }
 };
 
