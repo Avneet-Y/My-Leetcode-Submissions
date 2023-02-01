@@ -4,8 +4,6 @@ public:
     
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         
-        //using BFS
-        
         vector<int> indegree(numCourses, 0);
         vector<int> adj[numCourses];
         
@@ -13,6 +11,8 @@ public:
         {
             adj[it[0]].push_back(it[1]);
         }
+        
+        //using BFS, this all below is topological sort in DAG
         
         
         for(int i=0; i<numCourses; i++)
