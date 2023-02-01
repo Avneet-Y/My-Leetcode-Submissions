@@ -3,6 +3,8 @@
 using namespace std;
 
 // } Driver Code Ends
+
+/*
 class Solution
 {
 	public:
@@ -39,6 +41,50 @@ class Solution
 	    }
 	    return ans;
 
+	}
+};
+*/
+class Solution
+{
+    public:
+	//Function to return list containing vertices in Topological order. 
+	vector<int> topoSort(int V, vector<int> adj[]) 
+	{
+	    // code here
+	    int indexdegree[V] = {0};
+	    queue<int> q;
+	    for(int i=0; i<V; i++)
+	    {
+	        for(auto it : adj[i])
+	        {
+	            indexdegree[it]++;
+	        }
+	    }
+	    for(int i=0; i<V; i++)
+	    {
+	        if(indexdegree[i] == 0)
+	        {
+	            q.push(i);
+	        }
+	    }
+	  
+	    vector<int> ans;
+	    while(!q.empty())
+	    {
+	        int node = q.front();
+	        q.pop();
+	        ans.push_back(node);
+	        
+	        for(auto it : adj[node])
+	        {
+	            indexdegree[it]--;
+	            if(indexdegree[it] == 0)
+	            {
+	                q.push(it);
+	            }
+	        }
+	    }
+	    return ans;
 	}
 };
 
