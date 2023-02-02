@@ -1,4 +1,6 @@
 //basically topological sort
+/*
+
 class Solution {
 public:
     
@@ -49,5 +51,58 @@ public:
             return true;
         return false;
         
+    }
+};
+*/
+
+//basically topological sort
+class Solution {
+public:
+    void dfs(int node, vector<vector<int>>& adj, vector<int>& visited, stack<int> &st)
+    {
+        visited[node] = 1;
+        for(auto it : adj[node])
+        {
+            if(visited[it] == 0)
+                dfs(it, adj, visited, st);
+        }
+        st.push(node);
+    }
+    
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        
+        vector<vector<int>> adj(numCourses);
+        vector<int> visited(numCourses, 0);
+        for(auto it : prerequisites)
+        {
+            adj[it[1]].push_back(it[0]);
+        }
+        stack<int> st;
+        
+        for(int i=0; i<numCourses; i++)
+        {
+            if(visited[i] == 0)
+            {
+                dfs(i, adj, visited, st); 
+            }
+        }
+        int ct = 0;
+        vector<int> ans(numCourses, -1);
+        while(!st.empty())
+        {
+            int t = st.top();
+            st.pop();
+            ans[t] = ct;
+            ct++;
+        }
+        for(int i=0; i<numCourses; i++)
+        {
+            for(auto it : adj[i])
+            {
+                if(ans[i] >= ans[it])
+                    return false;
+            }
+        }
+        return true;
     }
 };
