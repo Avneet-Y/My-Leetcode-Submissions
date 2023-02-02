@@ -1,52 +1,42 @@
 class Solution {
 public:
-    bool isAlienSorted(vector<string>& words, string order) {
-        int n1 = order.size();
-        int n2 = words.size();
-        unordered_map<char, int> mp;
-        for(int i=0; i<n1; i++)
+    bool check(string s1, string s2, unordered_map<char, int> mp)
+    {
+        int i = 0;
+        int j = 0;
+        while(i < s1.size() && j < s2.size())
         {
-            mp[order[i]] = i;
-        }
-        for(int i=0; i < n2-1; i++)
-        {
-            int j = 0;
-            while(j < words[i].size() && j < words[i+1].size())
+            if(s1[i] != s2[j])
             {
-               
-                if(mp[words[i][j]] < mp[words[i+1][j]]) 
-                    break;      //If words pair already sorted move to next pair
-                if(mp[words[i][j]] > mp[words[i+1][j]])  //If they are not sorted 
+                if(mp[s1[i]] < mp[s2[j]])
+                    return true;
+                else
                     return false;
-                j++;
             }
-            //for handling cases like Example 3
-            if(j == words[i+1].size() && j < words[i].size()) 
-                return false; 
-            }
+            i++;
+            j++;
+        }
+        if(s1.size() <= s2.size())
+            return true;
+        return false;
+    }
+    
+    bool isAlienSorted(vector<string>& words, string order) {
+        unordered_map<char, int> mp;
+        int weight = 1;
+    
+        for(auto it : order)
+        {
+            mp[it] = weight;
+            weight++;
+        }
+        for(int i=0; i<words.size()-1; i++)
+        {
+            string first = words[i];
+            string second = words[i+1];
+            if(check(first, second, mp) == false)
+                return false;
+        }
         return true;
-        
-        
-//  map<char,int> mp;
-//         bool res = true;
-//         for(int i=0; i<order.size(); i++)
-//              mp[order[i]] = i;
-//         for(int i=0; i<words.size()-1; i++)
-//         {
-//             for(int j=0; j<words[i].size(); j++)
-//             {
-//                 if (j >= words[i + 1].length()) 
-//                     return false;
-//                  if(mp[words[i][j]]>mp[words[i+1][j]])
-//                      return false;
-//                  else if(mp[words[i][j]]<mp[words[i+1][j]]){
-//                      break;
-//                  }
-                 
-//             }
-            
-//         }
     }
 };
-
-        
