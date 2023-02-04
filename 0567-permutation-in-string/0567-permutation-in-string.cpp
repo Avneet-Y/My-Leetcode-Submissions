@@ -1,7 +1,10 @@
+/*
+Sliding window
+
 class Solution {
 public:
     bool checkInclusion(string s1, string s2) {
-         //standard question of fixed size sliding window 
+        //standard question of fixed size sliding window 
         
         unordered_map<char , int> mp;
         //taking freq of element of s1
@@ -42,5 +45,28 @@ public:
         }
         return false;
         
+    }
+};
+*/
+
+//using sorting
+
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+       int n1 = s1.size();      
+       int n2 = s2.size();
+        if(n1 > n2)
+            return false;
+      
+        sort(s1.begin(), s1.end());     //ab
+        for(int i=0; i <= n2-n1; i++)   //0 to 6
+        {
+            string temp = s2.substr(i, n1);  //substr(starting, length) 
+            sort(temp.begin(), temp.end()); //ei //di //bd //ab
+            if(temp == s1)
+                return true;
+        }
+        return false;
     }
 };
