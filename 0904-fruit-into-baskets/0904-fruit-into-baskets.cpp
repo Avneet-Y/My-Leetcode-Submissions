@@ -1,3 +1,5 @@
+/*Using two pointer
+
 class Solution {
 public:
     
@@ -46,6 +48,37 @@ public:
             }
             else
                 freq[fruits[i]]++;  //inserting a current fruit
+        }
+        return maxi;
+    }
+};
+
+*/
+//Sliding Window approach
+class Solution {
+    public:
+    
+    int totalFruit(vector<int>& fruits) {
+        
+        unordered_map<int,int>mp;
+        int maxi = 0;
+        int right = 0, left = 0;
+        int n = fruits.size();
+        while(right < n )
+        {
+            mp[fruits[right]]++;
+            right++;
+            
+            while(mp.size() > 2)
+            {
+                mp[fruits[left]]--;
+                if(mp[fruits[left]] == 0)
+                {
+                    mp.erase(fruits[left]);
+                }
+                left++;
+            } 
+            maxi = max(maxi, right - left);
         }
         return maxi;
     }
