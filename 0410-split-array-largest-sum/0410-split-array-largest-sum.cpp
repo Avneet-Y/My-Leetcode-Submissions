@@ -1,60 +1,54 @@
-//similar to minimum allocation of pages among k students
-//sum shoul be minimized so that both arrays don't get much load
-
 class Solution {
 public:
-    
-    bool isvalid(vector<int>& nums, int n, int k, int mid)
+    bool isvalid(vector<int>& nums, int k, int maxi, int n)
     {
-        int sum = 0, way = 1;
+        int count = 1;
+        int sum = 0;
         for(int i=0; i<n; i++)
         {
             sum += nums[i];
-            if(sum > mid)
+            if(sum > maxi)
             {
-                way++;
+                count++;
                 sum = nums[i];
             }
-            if(way > k)
-            {
+            if(count > k)
                 return false;
-            }
         }
         return true;
     }
     
-    int solve(vector<int>& nums, int n, int k)
+    int search(vector<int>& nums, int k, int n)
     {
-        int res = -1, maxi = INT_MIN;
-        long long sum = 0;
+        int sum = 0;
+        int maxi = INT_MIN;
+        int res = -1;
         for(int i=0; i<n; i++)
         {
             sum += nums[i];
-            maxi = max(maxi, nums[i]);
+            maxi = max(nums[i], maxi);
         }
         int start = maxi;
         int end = sum;
-        
         while(start <= end)
         {
             int mid = start + (end-start)/2;
-            if(isvalid(nums, n, k, mid) == true)
+            if(isvalid(nums, k, mid, n) == true)
             {
                 res = mid;
                 end = mid-1;
             }
             else
-            {
                 start = mid+1;
-            }
         }
         return res;
     }
     
+    
     int splitArray(vector<int>& nums, int k) {
         
-        int n = nums.size(), ans;
-        ans = solve(nums, n, k);
+        int n = nums.size();
+        int ans = search(nums, k, n);
         return ans;
         
     }
