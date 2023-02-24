@@ -2,34 +2,26 @@ class Solution {
 public:
     int minimumDeviation(vector<int>& nums) {
         int n = nums.size();
-        int maxi = INT_MIN;
         int mini = INT_MAX;
-        for(int i = 0; i < n; i++)
-        {
-            if(nums[i] % 2 != 0)
-            {
-                nums[i] = 2 * nums[i];
-            }
-            maxi = max(maxi, nums[i]);
-            mini = min(mini, nums[i]);
-        } 
+        int diff = INT_MAX;
         priority_queue<int> maxh;
-        for(int i = 0; i < n; i++)
+        for(int i=0; i<n; i++)
         {
+            if(nums[i]%2 == 1)
+            {
+                nums[i] *= 2;
+            }
+            mini = min(mini, nums[i]);
             maxh.push(nums[i]);
         }
-        int min_deviation = maxi - mini;
-        int top = 0;
         while(maxh.top() % 2 == 0)
         {
-            top = maxh.top();
+            int maxi = maxh.top();
             maxh.pop();
-            min_deviation = min(min_deviation, top - mini);
-            mini = min(mini, top / 2);
-            maxh.push(top / 2);
+            diff = min(diff, maxi - mini);
+            mini = min(mini, maxi/2);
+            maxh.push(maxi/2);
         }
-        top = maxh.top();
-        min_deviation = min(min_deviation, top - mini);
-        return min_deviation;
+        return min(diff , maxh.top() - mini);
     }
 };
