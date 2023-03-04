@@ -1,29 +1,20 @@
 class Solution {
 public:
-    long long countSubarrays(vector<int>& num, int minK, int maxK) {
-        long ans = 0;
-        bool minFound = false, maxFound = false;
-        int start = 0, minStart = 0, maxStart = 0;
-        for (int i = 0; i < num.size(); i++) {
-            if (num[i] < minK || num[i] > maxK) {
-                minFound = false;
-                maxFound = false;
-                start = i+1; 
-            }
-            // keeping track of minFound and minstart
-            if (num[i] == minK) {
-                minFound = true;
-                minStart = i;
-            }
-            // keeping track of maxFound and maxStart
-            if (num[i]== maxK) {
-                maxFound = true;
-                maxStart = i;
-            }
-            // calculating the count when both are true
-            if (minFound && maxFound) {
-                ans += (min(minStart, maxStart) - start + 1);
-            }
+    long long countSubarrays(vector<int>& nums, int minK, int maxK) {
+        int n = nums.size();
+        long long int ans = 0;
+        int ind = -1;
+        int mini = -1, maxi = -1;
+
+        for(int i=0; i<n; i++)
+        {
+            if(nums[i]  < minK || nums[i] > maxK) 
+                ind = i;
+            if(nums[i] == minK) 
+                mini = i;
+            if(nums[i] == maxK) 
+                maxi = i;
+            ans += max(0, min(mini, maxi) - ind);
         }
         return ans;
     }
