@@ -24,14 +24,13 @@ public:
                 vector<int>& next = mp[arr[i]];
                 next.push_back(i - 1);
                 next.push_back(i + 1);
-                // step 5
                 for (auto j : next) {
                     if (j >= 0 && j < n && !visited[j]) {
                         visited[j] = true;
                         q.push(j);
                     }
                 }
-                mp[arr[i]].clear(); // avoid later lookup indicesOfValue arr[i]
+                mp[arr[i]].clear(); // avoid later lookup mp arr[i]
             }
             step++;
         }
