@@ -2,21 +2,23 @@ class Solution {
 public:
     
     int findKthPositive(vector<int>& arr, int k) {
-        int n = arr.size();
-        int ans = 0;
-        bool mp[2001] = {0};
-        for(int i=0; i<n; i++)
-            mp[arr[i]] = 1;
-        for(int it = 1; it < 2001; it++)
-        {
-            if(mp[it] == 0)
-                k--;
-            if(k == 0)
-            {
-                return ans = it;
-            }   
-        }
-        return ans;
+        
+        //O(N) solution
+        // int n = arr.size();
+        // int ans = 0;
+        // bool mp[2001] = {0};
+        // for(int i=0; i<n; i++)
+        //     mp[arr[i]] = 1;
+        // for(int it = 1; it < 2001; it++)
+        // {
+        //     if(mp[it] == 0)
+        //         k--;
+        //     if(k == 0)
+        //     {
+        //         return ans = it;
+        //     }   
+        // }
+        // return ans;
 
         
         
@@ -50,6 +52,24 @@ public:
     //     }
     // } return 0;
         
-        
+        //Binary search 
+        int n = arr.size();
+        int start = 0, end = n - 1, mid, ans;
+        while (start <= end)
+        {
+            mid = start + (end - start) / 2;
+            int missed = arr[mid] - mid - 1;
+            if (missed >= k)
+            {
+                ans = arr[mid] - (missed - k) - 1;
+                end = mid - 1;
+            }
+            if (missed < k)
+            {
+                start = mid + 1;
+                ans = arr[mid] + k - missed;
+            }
+        }
+    return ans;    
     }
 };
