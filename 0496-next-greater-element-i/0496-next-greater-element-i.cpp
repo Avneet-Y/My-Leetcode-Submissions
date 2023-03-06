@@ -8,19 +8,21 @@ public:
         
         for(int i = n2-1; i >= 0; i--)
         {
-            while(st.size() > 0 && st.top() < nums2[i])
+            int ele = nums2[i];
+            while(!st.empty() && st.top() <= ele)
                 st.pop();
+            int res = 0;
             if(st.size() == 0)
-                mp[nums2[i]] = -1;
+                res = -1;
             else
-            {
-                mp[nums2[i]] = st.top();
-            }
-            st.push(nums2[i]);
-            
+                res = st.top();
+            mp.insert({ele, res});
+            st.push(ele);
         }
         for(auto it : nums1)
+        {
             ans.push_back(mp[it]);
+        }
         return ans;
     }
 };
