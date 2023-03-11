@@ -4,7 +4,7 @@ public:
         int n = nums.size();
         vector<int> ans;
         priority_queue< pair<int, int>, vector<pair <int, int>>, greater<pair <int, int>>>  minh;
-        map<int , int> mp;
+        unordered_map<int , int> mp;
         for(auto it : nums)
             mp[it]++;
         
