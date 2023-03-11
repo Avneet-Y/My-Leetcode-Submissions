@@ -1,102 +1,38 @@
-// class Solution {
-// public:
-//    static bool comp(pair<int,int>&a, pair<int,int>&b)
-//    {     // freq,ele ->pair
-//       if(a.first == b.first)  //having same freq
-//           return a.second > b.second;
-     
-//        return a.first < b.first;   //return having more freq
-//    }
-    
-//     vector<int> frequencySort(vector<int> &nums) {
-    
-//         unordered_map<int,int>mp;    
-//         for(auto i : nums)
-//             mp[i]++;
-
-//         vector<pair<int,int>> v;
-    
-//         for(auto i : mp)
-//         {
-//             v.push_back({i.second,i.first}); // frq , element
-//         }
-    
-//         sort(v.begin(),v.end(),comp);
-    
-//         vector<int> ans;
-    
-//         for(int i=0; i<v.size(); i++)
-//         {
-//             while(v[i].first--)
-//             {
-//                 ans.push_back(v[i].second);
-//             }
-//         }
-//      return ans;
-//     }
-// };
-
-
-
-
-/*
 class Solution {
 public:
-    
-    vector<int> frequencySort(vector<int> &nums) {
-    
-        unordered_map<int,int>mp;    
-        for(auto i : nums)
-            mp[i]++;
-        
-        sort(nums.begin(), nums.end(), [&](int a, int b)
-             {
-                return mp[a] != mp[b] ? mp[a] < mp[b] : a > b; });
-
-       
-     return nums;
-       
-    }
-};
-*/
-
-
-class Solution {
-public:
-    
-    vector<int> frequencySort(vector<int> &nums) {
-
-        unordered_map<int, int> mp;
+    class comparator{
+        public:
+        bool operator()(pair<int, int> a, pair<int, int> b)
+        {
+            if(a.first == b.first)
+                return a.second > b.second;
+            return a.first < b.first;
+        }
+    };
+    vector<int> frequencySort(vector<int>& nums) {
+        int n = nums.size();
         vector<int> ans;
-        for(int i=0; i<nums.size() ; i++)
-        {
-            mp[nums[i]]++;
-        }
+        unordered_map<int, int> mp;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, comparator> minh;
         
-        priority_queue<pair<int, int>> maxh;
-        for(auto it : mp)
+        for(auto it : nums)
+            mp[it]++;
+        
+        for(auto it = mp.begin(); it != mp.end(); it++)
         {
-            maxh.push({it.second, -1*(it.first)});
+            minh.push({it->second, it->first});           
         }
-        while(maxh.size() !=0 )
+        while(!minh.empty())
         {
-            int freq = maxh.top().first;
-            int ele = maxh.top().second;
+            int freq = minh.top().first;
+            int ele = minh.top().second;
             for(int i=1; i<=freq; i++)
             {
-                ans.push_back(-1*(ele));
+                ans.push_back(ele);
             }
-            maxh.pop();
+            minh.pop();
         }
         reverse(ans.begin(), ans.end());
         return ans;
     }
 };
-
-
-
-
-
-
-
-
