@@ -8,29 +8,36 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+class comparator
+{
+    public:
+    bool operator()(ListNode *a, ListNode *b)
+    {
+        return a->val > b->val;
+    }
+};
+
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        
-        vector<int> ans;
         int n = lists.size();
+        priority_queue<ListNode*, vector<ListNode*>, comparator> minh;
+        ListNode *head = new ListNode(0);   //a dummy node
+        ListNode *temp = head;
         for(int i=0; i<n; i++)
         {
-            ListNode *head = lists[i];
-            while(head != NULL)
-            {
-                ans.push_back(head->val);
-                head = head->next;
-            }
+            if(lists[i] != NULL)
+                minh.push(lists[i]);
         }
-        sort(ans.begin(), ans.end());
-        ListNode * temp = new ListNode(0);
-        ListNode* ptr = temp;
-        for(int i=0; i < ans.size(); i++)
+        while(!minh.empty())
         {
-            temp->next = new ListNode(ans[i]);
+            ListNode *ele = minh.top();
+            minh.pop();
+            temp->next = ele;
             temp = temp->next;
+            if(ele -> next != NULL)
+                minh.push(ele->next);
         }
-        return ptr->next;
+        return head->next;
     }
 };
