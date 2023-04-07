@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void dfs(int row, int col, vector<vector<int>>& visited, vector<vector<int>>& grid, int delrow[], int delcol[])
+     void dfs(int row, int col, vector<vector<int>>& visited, vector<vector<int>>& grid, int delrow[], int delcol[])
     {
         int n = grid.size();
         int m = grid[0].size();
@@ -62,5 +62,6 @@ public:
             }
         } 
         return count;
+        
     }
 };
