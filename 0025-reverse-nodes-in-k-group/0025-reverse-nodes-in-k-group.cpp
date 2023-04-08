@@ -10,29 +10,23 @@
  */
 class Solution {
 public:
-   
     ListNode* reverseKGroup(ListNode* head, int k) {
         if(head == NULL)
-        {
             return NULL;
-        }
-        //reverse first k nodes
+        ListNode* curr = head;
+        ListNode* prev = NULL;
+        ListNode* forward = NULL;
+        ListNode* temp = head;
         int count = 0;
-        ListNode *curr = head;
-        ListNode *prev = NULL;
-        ListNode *forward = NULL;
-        ListNode *temp = head;
+        //counting remaining nodes
         
-        // count remaining nodes
-        int countNodes = 0;
-        
-         while(temp != NULL)
-         {
-            countNodes++;
+        int countnodes = 0;
+        while(temp != NULL)
+        {
+            countnodes++;
             temp = temp->next;
         }
-        
-        if(countNodes >= k)
+        if(countnodes >= k)
         {
             while(curr != NULL && count < k)
             {
@@ -42,18 +36,14 @@ public:
                 curr = forward;
                 count++;
             }
-            //then do a recursion
             if(forward != NULL)
             {
                 head->next = reverseKGroup(forward, k);
             }
         }
         else
-        {
             return head;
-        }
-    
-        //then return head of reverse list
+        
         return prev;
     }
 };
