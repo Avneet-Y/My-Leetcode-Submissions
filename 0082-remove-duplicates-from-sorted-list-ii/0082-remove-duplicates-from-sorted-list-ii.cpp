@@ -17,7 +17,7 @@ public:
             return head;
         
         ListNode* temp = head;
-        ListNode* prev = new ListNode(0);
+        ListNode* newnode = new ListNode(0);
         map<int, int> mp;
         
         while(temp != NULL)
@@ -25,7 +25,7 @@ public:
             mp[temp->val]++;
             temp = temp->next;
         }
-        temp = prev;
+        temp = newnode;
         for(auto it = mp.begin(); it != mp.end(); it++)
         {
             if(it->second == 1)
@@ -34,6 +34,6 @@ public:
                 temp = temp->next;
             }
         }
-        return prev->next;
+        return newnode->next;
     }
 };
