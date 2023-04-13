@@ -14,6 +14,8 @@ public:
                 st.pop();
             }
         }
-        return st.empty();
+        if(st.size() == 0)
+            return true;
+        return false;
     }
 };
