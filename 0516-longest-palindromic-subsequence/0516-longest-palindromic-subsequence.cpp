@@ -1,39 +1,36 @@
 class Solution {
 public:
-    int lcs(string str1, string str2, int m, int n)
+    int dp[1001][1001];
+    int lps(string s1, string s2, int n)
     {
-        int dp[m+1][n+1];
-        for(int i = 0; i < m+1; i++)
+        for(int i=0; i<n+1; i++)
         {
-            for(int j = 0; j < n+1; j++)
+            for(int j=0; j<n+1; j++)
             {
                 if(i == 0 || j == 0)
                     dp[i][j] = 0;
             }
         }
-        for(int i = 1; i < m+1; i++)
+        for(int i=1; i<n+1; i++)
         {
-            for(int j = 1; j < n+1; j++)
+            for(int j=1; j<n+1; j++)
             {
-                if(str1[i-1] == str2[j-1])
+                if(s1[i-1] == s2[j-1])
+                {
                     dp[i][j] = 1 + dp[i-1][j-1];
+                }
                 else
                     dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+                
             }
         }
-        return dp[m][n];
+        return dp[n][n];
     }
     
     int longestPalindromeSubseq(string s) {
-       
-        int m = s.size();
-        string str2 = "";
-        // reverse(str2.begin(), str2.end());
-        for(int i = m; i >= 0; i--)
-            str2.push_back(s[i]);
-        int n = str2.size();
-        int ans = lcs(s, str2, m, n);
-        return ans;
-        
+        int n = s.size();
+        string s2 = s;
+        reverse(s2.begin(), s2.end());
+        return lps(s, s2, n);
     }
 };
