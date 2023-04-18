@@ -47,39 +47,24 @@ public:
         ListNode* anshead = NULL;
         ListNode* anstail = NULL;
         
-        while(l1 != NULL && l2 != NULL)
+        while(l1 != NULL || l2 != NULL || carry != 0)
         {
-            int sum = carry + l1->val + l2->val;
-            int digit = sum % 10;
-            insertattail(anshead, anstail, digit);
-            carry = sum/10;
+            int value1 = 0;
+            if(l1 != NULL)
+                 value1 = l1->val;
             
-            l1 = l1->next;
-            l2 = l2->next;
-        }
-        while(l1 != NULL)
-        {
-            int sum = carry + l1->val;
-            int digit = sum % 10;
-            insertattail(anshead, anstail, digit);
-            carry = sum/10;
-            l1 = l1->next;
+            int value2 = 0;
+            if(l2 != NULL)
+                 value2 = l2->val;
             
-        }
-        while(l2 != NULL)
-        {
-            int sum = carry + l2->val;
+            int sum = carry + value1 + value2;
             int digit = sum % 10;
             insertattail(anshead, anstail, digit);
             carry = sum/10;
-            l2 = l2->next;
-        }
-        while(carry != 0)
-        {
-            int sum = carry;
-            int digit = sum % 10;
-            insertattail(anshead, anstail, digit);
-            carry = sum/10;
+            if(l1 != NULL)
+                l1 = l1->next;
+            if(l2 != NULL)
+                l2 = l2->next;
         }
         return anshead;
     }
@@ -87,7 +72,9 @@ public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         
         ListNode* ans = add(l1, l2);
-        // ans = reverse(ans);
+        l1 = reverse(l1);
+        l2 = reverse(l2);
+        //ans = reverse(ans);
         
         return ans;
         
