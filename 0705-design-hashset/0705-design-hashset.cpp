@@ -1,22 +1,22 @@
 class MyHashSet {
 public:
-    unordered_set<int> hash;
+    vector<bool> hash;
     MyHashSet() {
-        
+        hash.resize(1e6 +1);
     }
     
     void add(int key) {
-        hash.insert(key);
+        hash[key] = 1;
         
     }
     
     void remove(int key) {
-        hash.erase(key);
+        hash[key] = 0;
         
     }
     
     bool contains(int key) {
-        return hash.count(key) == 1;
+        return hash[key] == 1;
         
     }
 };
