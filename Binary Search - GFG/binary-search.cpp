@@ -10,21 +10,28 @@ using namespace std;
 
 class Solution {
   public:
-    int binarysearch(int arr[], int n, int k) {
-        // code here
-        int start = 0;
-        int end = n-1;
+  
+    int binary(int arr[], int start, int end, int k)
+    {
         while(start <= end)
         {
             int mid = start + (end-start)/2;
             if(arr[mid] == k)
                 return mid;
-            else if(arr[mid] > k)
-                end = mid - 1;
             else if(arr[mid] < k)
-                start = mid + 1;
+                start = mid+1;
+            else
+                end = mid-1;
         }
         return -1;
+        
+    }
+  
+    int binarysearch(int arr[], int n, int k) {
+        // code here
+        int ans = -1;
+        ans = binary(arr, 0, n-1, k);
+        return ans;
     }
 };
 
