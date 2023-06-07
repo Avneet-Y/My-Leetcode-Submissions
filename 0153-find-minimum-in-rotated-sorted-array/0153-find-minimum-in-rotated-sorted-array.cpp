@@ -1,88 +1,29 @@
-/*
 class Solution {
 public:
-    int findMin(vector<int>& nums) {
-        
-//         int n = nums.size();
-    
-//         if(n == 1)
-//             return nums[0];
-        
-//         if(nums[0] < nums[n-1])
-//             return nums[0];
-        
-//         int start = 0;
-//         int end = n-1;
-        
-//         int ans = INT_MAX;
-//         while(start <= end)
-//         {    
-//             int mid = (start + end) / 2;
-			
-//             if(nums[mid] >= nums[0])
-//                 start = mid +1;
-            
-//             else
-//             {
-//                 ans = min(ans , nums[mid]);
-//                 end = mid - 1;
-//             }
-//         }
-//         return ans;
-        
-        
-        int start = 0;
-        int n = nums.size();
-        int end = n - 1, next, prev;
+    int binary(vector<int>& nums, int n)
+    {
+        int start = 0, next, prev;
+        int end = n-1;
         while(start <= end)
         {
-            int mid = start + (end - start)/2;
+            int mid = start + (end-start)/2;
             if(nums[start] <= nums[end])
                 return nums[start];
-            next = (mid + 1) % n;
+            next = (mid+1) % n;
             prev = (mid + n - 1) % n;
-            if(nums[mid] <= nums[next] && nums[mid] <= nums[prev])
+            if(nums[prev] >= nums[mid] && nums[next] >= nums[mid])
                 return nums[mid];
             else if(nums[start] <= nums[mid])
-                start = mid + 1;
+                start = mid+1;
             else if(nums[mid] <= nums[end])
-                end = mid - 1;
+                end = mid-1;
         }
         return nums[start];
     }
-};
-*/
-
-
-
-
-
-class Solution {
-public:
-     int solve(vector<int> &nums, int start, int end)
-     {
-         int prev, next;
-         int n = nums.size();
-         while(start <= end)
-         {
-             int mid = start + (end-start)/2;
-             if(nums[start] <= nums[end])
-                return nums[start];
-             prev = (mid - 1 + n) % n;
-             next = (mid + 1) % n;
-             if(nums[mid] <= nums[prev] && nums[mid] <= nums[next])
-                 return nums[mid];
-             else if(nums[start] <= nums[mid])
-                 start = mid + 1;
-             else if(nums[mid] <= nums[end])
-                 end = mid - 1;
-         }
-         return nums[start];
-     }
-    
     int findMin(vector<int>& nums) {
         int n = nums.size();
-        int ans = solve(nums, 0, n-1);
+        int ans = binary(nums, n);
         return ans;
+        
     }
 };
