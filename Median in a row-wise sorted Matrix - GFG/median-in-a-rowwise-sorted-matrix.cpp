@@ -10,20 +10,43 @@ using namespace std;
 
 class Solution{   
 public:
-    int median(vector<vector<int>> &matrix, int R, int C){
-        // code here          
-        int n = matrix.size();
-        int m = matrix[0].size();
-        vector<int> vec;
-        for(int i=0; i<n; i++)
+    int lessthanmid(vector<int> &row, int middle)
+    {
+        int start = 0;
+        int end = row.size()-1;
+        while(start <= end)
         {
-            for(int j=0; j<m; j++)
-            {
-                vec.push_back(matrix[i][j]);
-            }
+            int mid = start + (end-start)/2;
+            if(row[mid] <= middle)
+                start = mid+1;
+            else
+                end = mid-1;
         }
-        sort(vec.begin(), vec.end());
-        return vec[(n*m-1)/2];
+        return start;
+    }
+    
+    int median(vector<vector<int>> &matrix, int R, int C){
+        // code here         
+        int n = R;
+        int m = C;
+        
+        int start = 0;
+        int end = 1e9;
+        
+        
+        while(start<=end)
+        {
+            int middle = start + (end-start)/2;
+            int count = 0;//how much less than mid
+            for(int i=0; i<n; i++)
+                count += lessthanmid(matrix[i], middle);
+            
+            if(count <= n*m/2)
+                start = middle+1;
+            else
+                end = middle-1;
+        }
+        return start;
     }
 };
 
