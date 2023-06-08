@@ -1,28 +1,30 @@
 class Solution {
 public:
-    int search(vector<int>& nums, int start, int end, int target)
+    int binaryceil(vector<int>& nums, int start, int end, int target)
     {
+        int res = -1;
         while(start <= end)
         {
             int mid = start + (end-start)/2;
-            if(target == nums[mid])
+            if(nums[mid] == target)
                 return mid;
-            else if(target > nums[mid])
+            else if(nums[mid] > target)
             {
-                start = mid+1;
-            }
-            else if(target < nums[mid])
-            {
+                res = mid;
                 end = mid-1;
             }
+            else if(nums[mid] < target)
+            {
+                start = mid+1;
+            }   
         }
-        return start;
-        
+        return res;
     }
     int searchInsert(vector<int>& nums, int target) {
         int n = nums.size();
-        int ans = search(nums, 0, n-1, target);
+        int ans = binaryceil(nums, 0, n-1, target);
+        if(ans == -1)
+            return n;
         return ans;
-        
     }
 };
