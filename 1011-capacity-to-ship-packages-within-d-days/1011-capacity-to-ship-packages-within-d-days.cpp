@@ -1,17 +1,16 @@
 class Solution {
 public:
-    
-    bool isvalid(vector<int>& weights, int days, int maxi, int n)
+    bool isvalid(vector<int>& weights, int n, int days, int mx)
     {
         int tempdays = 1;
-        int sum = 0;
+        int tempsum = 0;
         for(int i=0; i<n; i++)
         {
-            sum += weights[i];
-            if(sum > maxi)
+            tempsum += weights[i];
+            if(tempsum > mx)
             {
                 tempdays++;
-                sum = weights[i];
+                tempsum = weights[i];
             }
             if(tempdays > days)
                 return false;
@@ -19,35 +18,26 @@ public:
         return true;
     }
     
-    int search(vector<int>& weights, int days, int n)
-    {
-        int sum = 0;
-        int maxi = INT_MIN;
-        int res = -1;
-        for(int i=0; i<n; i++)
-        {
-            sum += weights[i];
-            maxi = max(weights[i], maxi);
-        }
-        int start = maxi;
+    int shipWithinDays(vector<int>& weights, int days) {
+        int n = weights.size();
+        
+        int sum = accumulate(weights.begin(), weights.end(), 0);
+        int maxi = *max_element(weights.begin(), weights.end());
+        
+        int start = maxi; 
         int end = sum;
+        int ans = -1;
         while(start <= end)
         {
             int mid = start + (end-start)/2;
-            if(isvalid(weights, days, mid, n) == true)
+            if(isvalid(weights, n, days, mid) == true)
             {
-                res = mid;
+                ans = mid;
                 end = mid-1;
             }
             else
                 start = mid+1;
         }
-        return res;
-    }
-    
-    int shipWithinDays(vector<int>& weights, int days) {
-        int n = weights.size();
-        int ans = search(weights, days, n);
-        return ans;
+        return ans; 
     }
 };
