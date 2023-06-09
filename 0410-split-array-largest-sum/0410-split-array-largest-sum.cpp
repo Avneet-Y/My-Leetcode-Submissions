@@ -1,54 +1,42 @@
 class Solution {
 public:
-    bool isvalid(vector<int>& nums, int k, int maxi, int n)
+     bool isvalid(vector<int>& nums, int n, int k, int mx)
     {
-        int count = 1;
-        int sum = 0;
+        int tempsize = 1;
+        int tempsum = 0;
         for(int i=0; i<n; i++)
         {
-            sum += nums[i];
-            if(sum > maxi)
+            tempsum += nums[i];
+            if(tempsum > mx)
             {
-                count++;
-                sum = nums[i];
+                tempsize++;
+                tempsum = nums[i];
             }
-            if(count > k)
+            if(tempsize > k)
                 return false;
         }
         return true;
     }
-    
-    int search(vector<int>& nums, int k, int n)
-    {
-        int sum = 0;
-        int maxi = INT_MIN;
-        int res = -1;
-        for(int i=0; i<n; i++)
-        {
-            sum += nums[i];
-            maxi = max(nums[i], maxi);
-        }
-        int start = maxi;
+    int splitArray(vector<int>& nums, int k) {
+         int n = nums.size();
+        
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        int maxi = *max_element(nums.begin(), nums.end());
+        
+        int start = maxi; 
         int end = sum;
+        int ans = -1;
         while(start <= end)
         {
             int mid = start + (end-start)/2;
-            if(isvalid(nums, k, mid, n) == true)
+            if(isvalid(nums, n, k, mid) == true)
             {
-                res = mid;
+                ans = mid;
                 end = mid-1;
             }
             else
                 start = mid+1;
         }
-        return res;
-    }
-    
-    
-    int splitArray(vector<int>& nums, int k) {
-        
-        int n = nums.size();
-        int ans = search(nums, k, n);
         return ans;
         
     }
