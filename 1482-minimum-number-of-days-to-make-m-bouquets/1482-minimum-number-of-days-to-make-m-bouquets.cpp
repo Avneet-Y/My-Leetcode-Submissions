@@ -1,12 +1,13 @@
 class Solution {
 public:
-    
-    bool isvalid(vector<int>& bloomDay, int days, int m, int k)
+    bool isvalid(vector<int>& bloomDay, int m, int k, int midday)
     {
-        int count = 0, result = 0;
-        for(int i=0; i<bloomDay.size(); i++)
+        int count = 0;
+        int result = 0;
+        int n = bloomDay.size();
+        for(int i=0; i<n; i++)
         {
-            if(bloomDay[i] <= days)
+            if(bloomDay[i] <= midday)
             {
                 count++; //count represents consective flowers
             }
@@ -20,34 +21,35 @@ public:
                 result++;
             }
         }
-        if(result >= m)
+         if(result >= m)
             return true;
         return false;
     }
     
-    int solve(vector<int>& bloomDay, int m, int k) 
+    int binary(vector<int>& bloomDay, int m, int k)
     {
-        int res = -1;
-        int start = 1, end = *max_element(bloomDay.begin(), bloomDay.end());
+        int start = 1;
+        int end = *max_element(bloomDay.begin(), bloomDay.end());
+        int ans = -1;
+        
         while(start <= end)
         {
             int mid = start + (end-start)/2;
-            if(isvalid(bloomDay, mid, m, k) == true)
+            if(isvalid(bloomDay, m, k, mid) == true)
             {
-                res = mid; 
+                ans = mid;
                 end = mid-1;
             }
             else
-            {
                 start = mid+1;
-            }
         }
-        return res; 
-    }
-    
-    int minDays(vector<int>& bloomDay, int m, int k) {
-        int n = bloomDay.size(), ans;
-        ans = solve(bloomDay, m, k);
         return ans;
+        
+    }
+    int minDays(vector<int>& bloomDay, int m, int k) {
+        int ans = -1;
+        ans = binary(bloomDay, m , k);
+        return ans;
+        
     }
 };
