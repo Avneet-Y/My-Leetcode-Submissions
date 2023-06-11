@@ -12,15 +12,16 @@ class Solution {
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
         if(head == NULL)
-            return NULL;
+            return head;
+        
+        ListNode* temp = head;
         ListNode* curr = head;
         ListNode* prev = NULL;
         ListNode* forward = NULL;
-        ListNode* temp = head;
-        int count = 0;
-        //counting remaining nodes
         
+        int count = 0;
         int countnodes = 0;
+        
         while(temp != NULL)
         {
             countnodes++;
@@ -43,7 +44,6 @@ public:
         }
         else
             return head;
-        
         return prev;
     }
 };
