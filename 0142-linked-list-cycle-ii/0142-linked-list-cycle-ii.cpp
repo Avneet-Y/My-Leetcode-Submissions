@@ -21,6 +21,7 @@ public:
             if(fast != NULL)
                 fast = fast->next;
             slow = slow->next;
+            
             if(slow == fast)
             {
                 while(slow != intersect)
