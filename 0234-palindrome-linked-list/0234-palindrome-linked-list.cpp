@@ -13,12 +13,12 @@ public:
     ListNode* findmiddle(ListNode* head)
     {
         ListNode* slow = head;
-        ListNode* fast = head->next;
+        ListNode* fast = head;
         
-        while(fast != NULL && fast->next != NULL)
+         while(fast != NULL && fast->next != NULL)
         {
             fast = fast->next->next;
-            slow = slow->next;  
+            slow = slow->next;
         }
         return slow;
     }
@@ -44,10 +44,10 @@ public:
             return true;
         
         ListNode* mid = findmiddle(head);
-        ListNode* temp = mid->next;
-        mid->next = reverse(temp);
+        ListNode* temp = mid;
+        mid = reverse(temp);
         ListNode* head1 = head;
-        ListNode* head2 = mid->next;
+        ListNode* head2 = mid;
         
         while(head2 != NULL)
         {
