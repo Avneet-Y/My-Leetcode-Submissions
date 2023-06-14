@@ -10,44 +10,45 @@
  */
 class Solution {
 public:
-    ListNode* getmiddle(ListNode* head)
+    ListNode* findmiddle(ListNode* head)
     {
         ListNode* slow = head;
         ListNode* fast = head->next;
+        
         while(fast != NULL && fast->next != NULL)
         {
-            slow = slow->next;
             fast = fast->next->next;
+            slow = slow->next;  
         }
         return slow;
     }
     
-    ListNode* reverse(ListNode *head)
+    ListNode* reverse(ListNode* head)
     {
-        ListNode* curr = head;
         ListNode* prev = NULL;
-        ListNode* next = NULL;
+        ListNode* forward = NULL;
+        ListNode* curr = head;
         
         while(curr != NULL)
         {
-            next = curr->next;
+            forward = curr->next;
             curr->next = prev;
             prev = curr;
-            curr = next;
+            curr = forward;
         }
         return prev;
     }
     
     bool isPalindrome(ListNode* head) {
-        if(head->next == NULL || head == NULL)
+         if(head->next == NULL || head == NULL)
             return true;
-        ListNode* middle = getmiddle(head);
         
-        ListNode* temp = middle->next;
-        middle->next = reverse(temp);
-        
+        ListNode* mid = findmiddle(head);
+        ListNode* temp = mid->next;
+        mid->next = reverse(temp);
         ListNode* head1 = head;
-        ListNode* head2 = middle->next;
+        ListNode* head2 = mid->next;
+        
         while(head2 != NULL)
         {
             if(head1->val != head2->val)
