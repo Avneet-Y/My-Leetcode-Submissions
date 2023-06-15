@@ -12,25 +12,18 @@ public:
         ListNode* head1 = headA;
         ListNode* head2 = headB;
         
-        unordered_map<ListNode*, bool> mp;
-        while(head1 != NULL)
+        while(head1 != head2)
         {
-            if(mp[head1] == true)
-            {
-                return head1;
-            }
-            mp[head1] = true;
-            head1 = head1->next;
+            if(head1 == NULL)
+                head1 = headA;
+            else
+                head1 = head1->next;
+            
+            if(head2 == NULL)
+                head2 = headB;
+            else
+                head2 = head2->next;
         }
-        while(head2 != NULL)
-        {
-            if(mp[head2] == true)
-            {
-                return head2;
-            }
-            mp[head2] = true;
-            head2 = head2->next;
-        }
-        return NULL;
+        return head1;
     }
 };
