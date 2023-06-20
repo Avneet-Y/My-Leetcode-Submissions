@@ -1,26 +1,26 @@
 class Solution {
 public:
-    void solve(vector<int>& nums, set<vector<int>> &temp, int index)
+    void solve(vector<int> nums, vector<vector<int>> &ans, int index)
     {
-        if(index >= nums.size())
+        if(index == nums.size())
         {
-            temp.insert(nums);
+            ans.push_back(nums);
             return;
         }
         for(int j = index; j<nums.size(); j++)
         {
-            swap(nums[j], nums[index]);
-            solve(nums, temp, index+1);
-            swap(nums[j], nums[index]);
+            if(j != index && nums[j] == nums[index])
+                continue;
+            swap(nums[index], nums[j]);
+            solve(nums, ans, index+1);
+            //swap(nums[j], nums[index]);
         }
     }
     vector<vector<int>> permuteUnique(vector<int>& nums) {
         vector<vector<int>> ans;
-        set<vector<int>> temp; 
         int index = 0;
-        solve(nums, temp, index);
-        for(auto it : temp)
-            ans.push_back(it);
+        sort(nums.begin(), nums.end());
+        solve(nums, ans, index);
         return ans;
     }
 };
