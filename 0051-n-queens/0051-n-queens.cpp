@@ -1,40 +1,40 @@
 class Solution {
 public:
-    bool issafe(int row, int col, int n, vector<string> &boards)
-    {
-        int temprow = row;
-        int tempcol = col;
+//     bool issafe(int row, int col, int n, vector<string> &boards)
+//     {
+//         int temprow = row;
+//         int tempcol = col;
         
-        while(row >= 0 && col >= 0)
-        {
-            if(boards[row][col] == 'Q')
-                return false;
-            row--;
-            col--;
-        }
-        row = temprow;
-        col = tempcol;
+//         while(row >= 0 && col >= 0)
+//         {
+//             if(boards[row][col] == 'Q')
+//                 return false;
+//             row--;
+//             col--;
+//         }
+//         row = temprow;
+//         col = tempcol;
         
-        while(col >= 0)
-        {
-            if(boards[row][col] == 'Q')
-                return false;
-            col--;
-        }
-        row = temprow;
-        col = tempcol;
+//         while(col >= 0)
+//         {
+//             if(boards[row][col] == 'Q')
+//                 return false;
+//             col--;
+//         }
+//         row = temprow;
+//         col = tempcol;
         
-        while(row < n && col >= 0)
-        {
-            if(boards[row][col] == 'Q')
-                return false;
-            row++;
-            col--;
-        }
-        return true;   
-    }
+//         while(row < n && col >= 0)
+//         {
+//             if(boards[row][col] == 'Q')
+//                 return false;
+//             row++;
+//             col--;
+//         }
+//         return true;   
+//     }
     
-    void solve(int col, vector<vector<string>> &ans, vector<string> &boards, int n)
+    void solve(int col, vector<vector<string>> &ans, vector<string> &boards, int n, vector<int> &leftrow, vector<int> &upperdiag, vector<int> &lowerdiag)
     {
         if(col == n)
         {
@@ -44,11 +44,17 @@ public:
         
         for(int row = 0; row<n; row++)
         {
-            if(issafe(row, col, n, boards) == true)
+            if(leftrow[row] == 0 && upperdiag[n-1+col-row] == 0 && lowerdiag[row+col]== 0)
             {
                 boards[row][col] = 'Q';
-                solve(col+1, ans, boards, n);
+                leftrow[row] = 1;
+                upperdiag[n-1+col-row] = 1;
+                lowerdiag[row+col] = 1;
+                solve(col+1, ans, boards, n, leftrow, upperdiag, lowerdiag);
                 boards[row][col] = '.';
+                leftrow[row] = 0;
+                upperdiag[n-1 + col-row] = 0;
+                lowerdiag[row + col] = 0;
             }
         }
     }
@@ -60,7 +66,10 @@ public:
         {
             boards[i] = s;
         }
-        solve(0, ans, boards, n);
+        vector<int> leftrow(n, 0); 
+        vector<int> upperdiag(2*n - 1, 0);
+        vector<int> lowerdiag(2*n - 1, 0);
+        solve(0, ans, boards, n, leftrow, upperdiag, lowerdiag);
         return ans;
     }
 };
