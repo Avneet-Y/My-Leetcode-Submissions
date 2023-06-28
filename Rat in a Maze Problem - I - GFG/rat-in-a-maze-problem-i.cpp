@@ -11,81 +11,77 @@ using namespace std;
 class Solution{
     public:
     
-    bool issafe(int x, int y, int n, vector<vector<int>> visited, vector<vector<int>> &m)
+    bool issafe(int x, int y, vector<vector<int>> &visited, vector<vector<int>> &m, int n)
     {
-        if(x >= 0 && x < n && y >= 0 && y<n && visited[x][y] == 0 && m[x][y] == 1)
+        if(x >=0 && x<n && y >= 0 && y<n && visited[x][y] == 0 && m[x][y] == 1 )
             return true;
         return false;
     }
     
-    void solve(vector<vector<int>> &m, int n, vector<string> &ans, vector<vector<int>> visited, 
-                    string path, int x, int y)
+    void solve(vector<vector<int>> &m, int n, vector<string> &ans, vector<vector<int>> &visited, int x, int y, string path)
     {
         if(x == n-1 && y == n-1)
         {
             ans.push_back(path);
             return;
         }
-        
         visited[x][y] = 1;
         
-        //down
         int xcor = x+1;
         int ycor = y;
-        if(issafe(xcor, ycor, n, visited, m) == true)
+        
+        if(issafe(xcor, ycor, visited, m, n))
         {
             path.push_back('D');
-            solve(m, n, ans, visited, path, xcor, ycor);
+            solve(m, n, ans, visited, xcor, ycor, path);
             path.pop_back();
         }
-        //left
+        
         xcor = x;
         ycor = y-1;
-        if(issafe(xcor, ycor, n, visited, m) == true)
+        
+        if(issafe(xcor, ycor, visited, m, n))
         {
             path.push_back('L');
-            solve(m, n, ans, visited, path, xcor, ycor);
+            solve(m, n, ans, visited, xcor, ycor, path);
             path.pop_back();
         }
         
-        //right
         xcor = x;
         ycor = y+1;
-        if(issafe(xcor, ycor, n, visited, m) == true)
+        
+        if(issafe(xcor, ycor, visited, m, n))
         {
             path.push_back('R');
-            solve(m, n, ans, visited, path, xcor, ycor);
+            solve(m, n, ans, visited, xcor, ycor, path);
             path.pop_back();
         }
         
-        //Up
         xcor = x-1;
         ycor = y;
-        if(issafe(xcor, ycor, n, visited, m) == true)
+        
+        if(issafe(xcor, ycor, visited, m, n))
         {
             path.push_back('U');
-            solve(m, n, ans, visited, path, xcor, ycor);
+            solve(m, n, ans, visited, xcor, ycor, path);
             path.pop_back();
         }
         visited[x][y] = 0;
+        
     }
-    
     vector<string> findPath(vector<vector<int>> &m, int n) {
         // Your code goes here
         vector<string> ans;
-        
         vector<vector<int>> visited(n, vector<int> (n, 0));
-        
         int startx = 0;
         int starty = 0;
         string path = "";
-        
-        if(m[0][0] == 0)
+        if(m[0][0] != 1)
             return ans;
-        
-        solve(m, n, ans, visited, path, startx, starty);
+        solve(m, n, ans, visited, startx, starty, path);
         sort(ans.begin(), ans.end());
         return ans;
+        
     }
 };
 
