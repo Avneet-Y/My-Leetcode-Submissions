@@ -97,26 +97,63 @@ struct Node {
 class Solution{
     public:
     vector<int> postOrder(Node* node) {
-        // code here
-        vector<int> anspost;
-        if(node == NULL)
+    //code here
+    //     vector<int> anspost;
+    //     if(node == NULL)
+    //         return anspost;
+    //     stack<Node*> st1, st2;
+    //     st1.push(node);
+    //     while(!st1.empty())
+    //     {
+    //         node = st1.top();
+    //         st1.pop();
+    //         st2.push(node);
+    //         if(node->left != NULL)
+    //             st1.push(node->left);
+    //         if(node->right != NULL)
+    //             st1.push(node->right);
+    //     }
+    //     while(!st2.empty())
+    //     {
+    //         anspost.push_back(st2.top()->data);
+    //         st2.pop();  
+    //     }
+    //     return anspost;
+    
+    //IN one stack
+    vector<int> anspost;
+        stack<Node*> st;
+        Node *curr = node;
+        if(curr == NULL)
             return anspost;
-        stack<Node*> st1, st2;
-        st1.push(node);
-        while(!st1.empty())
+        
+        Node* temp = NULL;
+        
+        while(curr != NULL || !st.empty())
         {
-            node = st1.top();
-            st1.pop();
-            st2.push(node);
-            if(node->left != NULL)
-                st1.push(node->left);
-            if(node->right != NULL)
-                st1.push(node->right);
-        }
-        while(!st2.empty())
-        {
-            anspost.push_back(st2.top()->data);
-            st2.pop();  
+           if(curr != NULL)
+           {
+               st.push(curr);
+               curr = curr->left;
+           }
+           else
+           {
+               temp = st.top()->right;
+               if(temp == NULL)
+               {
+                   temp = st.top();
+                   st.pop();
+                   anspost.push_back(temp->data);
+                   while(!st.empty() && temp == st.top()->right)
+                   {
+                       temp = st.top();
+                       st.pop();
+                       anspost.push_back(temp->data);
+                   }
+               }
+               else
+                   curr = temp;
+           }
         }
         return anspost;
     }
