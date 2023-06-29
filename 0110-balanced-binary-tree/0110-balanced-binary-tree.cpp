@@ -35,7 +35,7 @@ public:
         bool left = isBalanced(root->left);
         bool right = isBalanced(root->right);
         
-        if(!left || !right)
+        if(left == 0 || right == 0)
             return false;
         return true;
          
