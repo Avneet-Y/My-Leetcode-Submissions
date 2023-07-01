@@ -18,7 +18,7 @@ public:
             return right;
         else if(right == NULL)
             return left;
-        else    //here q , p are not null, ans is it
+        else    //here left , right are not null, ans is it
             return root;
     }
 };
