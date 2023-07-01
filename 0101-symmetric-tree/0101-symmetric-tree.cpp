@@ -11,27 +11,19 @@
  */
 class Solution {
 public:
-    bool helper(TreeNode* root1, TreeNode* root2)
+    bool symmetricsolve(TreeNode* leftn, TreeNode* rightn)
     {
-        if(root1 != NULL && root2 != NULL)
-        {
-            bool a = helper(root1->left, root2->right);
-            bool b = helper(root1->right, root2->left);
-            
-            if((root1->val == root2->val) && a == true && b == true)
-                return true;
-            else 
-                return false;
-        }
-        else if(root1 == NULL && root2 == NULL)
-            return true;
-        else
+        if(leftn == NULL || rightn == NULL)
+            return leftn == rightn;
+        if(leftn->val != rightn->val)
             return false;
+        return symmetricsolve(leftn->left, rightn->right) && symmetricsolve(leftn->right, rightn->left);
+            
     }
-    
+        
     bool isSymmetric(TreeNode* root) {
         if(root == NULL)
             return true;
-        return helper(root->left, root->right);
+        return symmetricsolve(root->left, root->right);
     }
 };
