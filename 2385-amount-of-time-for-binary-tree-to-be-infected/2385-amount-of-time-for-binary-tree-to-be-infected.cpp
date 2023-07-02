@@ -11,6 +11,8 @@
  */
 class Solution {
 public:
+    
+    //Exact same as All Nodes Distance K in Binary Tree
     void markparent(TreeNode *root, unordered_map<TreeNode*, TreeNode*> &mpparent, int start, TreeNode* &startnode )
     {
         queue<TreeNode*> q;
