@@ -10,7 +10,7 @@
 class Solution {
 public:
     void markparent(TreeNode* root, unordered_map<TreeNode*, TreeNode*> &parentmp)
-    {
+    {               //marking all child node's parents as node, parent 
         queue<TreeNode*> q;
         q.push(root);
         while(!q.empty())
@@ -35,12 +35,12 @@ public:
         unordered_map<TreeNode*, TreeNode*> parentmp;
         markparent(root, parentmp);
         
-        unordered_map<TreeNode*, bool> visited;
-        
+        unordered_map<TreeNode*, bool> visited;  //visited map so parent na include kre 
+                                                    //vapas and mark visited
         queue<TreeNode*> q;
         visited[target] = true; //start with the target and push in q
         q.push(target);
-        int currlvl = 0;
+        int currlvl = 0;   //node se agli node ke distance
         
         while(!q.empty())
         {
@@ -69,12 +69,12 @@ public:
                 }
             }
         }
-        while(!q.empty())
+        while(!q.empty())   //q me targetnode se jaane vale dis ke nodes gye hai
         {
             TreeNode *node = q.front();
             q.pop();                
             ans.push_back(node->val);
         }
-        return ans;
+        return ans; 
     }
 };
