@@ -11,40 +11,33 @@
  */
 class Solution {
 public:
-   int widthOfBinaryTree(TreeNode* root) {
+    int widthOfBinaryTree(TreeNode* root) {
+        if(root == NULL)
+            return 0;
+        int ans = 0;
         queue<pair<TreeNode*, int>> q;
-        q.push({root, 0});
-        int ans = INT_MIN;
-        while(!q.empty())
-        {
+        q.push({root, 0});  //doing a 0 based indexing
+        
+        while(!q.empty()){
             int size = q.size();
-            int min = q.front().second;
-            int first, last;
-            
-            for(int i = 0; i < size; i++)
+            int minind_on_lvl = q.front().second; //i take min ind on that level
+            int first , last;
+            for(int i=0; i<size; i++)
             {
-                TreeNode* curr = q.front().first;
-                int curr_idx = q.front().second;
-                curr_idx -= min;
+                int curr_ind = q.front().second - minind_on_lvl; //modify acc to min
+                TreeNode *node = q.front().first;
                 q.pop();
                 if(i == 0)
-                {
-                    first = curr_idx;
-                }
-                if(i == size-1)
-                {
-                    last = curr_idx;
-                }
-                if(curr->left)
-                {
-                    q.push({curr->left, (long long)2*curr_idx + 1});
-                }
-                if(curr->right)
-                {
-                    q.push({curr->right, (long long)2*curr_idx + 2});
-                }
+                    first = curr_ind;   //store first ind
+                if(i == size - 1)
+                    last = curr_ind; //store last one in that level
+                if(node->left != NULL)
+                    q.push({node->left, (long long)2*curr_ind + 1});
+                
+                if(node->right != NULL)
+                    q.push({node->right, (long long)2*curr_ind + 2});
             }
-            ans = max(ans, last-first+1);
+            ans = max(ans, last - first + 1);
         }
         return ans;
     }
