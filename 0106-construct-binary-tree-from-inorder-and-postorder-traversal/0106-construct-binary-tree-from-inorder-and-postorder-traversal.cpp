@@ -11,37 +11,28 @@
  */
 class Solution {
 public:
-    int i;
-    int search(vector<int>& in, int start, int end, int val)
+    TreeNode* build(vector<int>& inorder, int instart, int inend, vector<int>& postorder, int poststart, int postend, map<int, int> & mp)
     {
-        for(int i = start; i <= end; i++)
-        {
-            if(in[i] == val)
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
-    TreeNode* construct(vector<int>& post, int start, int end, vector<int>& in)
-    {
-        if(start > end)
+        if(instart > inend || poststart > postend)
         {
             return NULL;
         }
-        int val = post[i];
-        i--;
-        int idx = search(in, start, end, val);
-        TreeNode* root = new TreeNode(val);
-        root -> right = construct(post, idx + 1, end, in);
-        root -> left = construct(post, start, idx - 1, in);
+        TreeNode *root = new TreeNode(postorder[postend]);
+        int inroot = mp[postorder[postend]];
+        int newleft = inroot - instart;
+        root->left = build(inorder, instart, inroot-1, postorder, poststart, poststart+newleft-1, mp);
+        root->right = build(inorder, inroot+1, inend, postorder, poststart + newleft, postend - 1, mp);
         return root;
-    }
-    
-    TreeNode* buildTree(vector<int>& in, vector<int>& post) {
         
-        int n = in.size();
-        i = n-1;
-        return construct(post, 0, n - 1, in);
+    }
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        map<int, int> mp;
+        for(int i=0; i<inorder.size(); i++)
+        {
+            mp[inorder[i]] = i;
+        }
+        TreeNode* root = build(inorder, 0, inorder.size()-1, postorder, 0, postorder.size()-1, mp);
+        return root;
+        
     }
 };
