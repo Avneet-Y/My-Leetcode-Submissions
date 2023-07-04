@@ -22,9 +22,9 @@ public:
             TreeNode* currnode = q.front();
             q.pop();
             if(currnode == NULL)
-                ans.append("#,");
+                ans += "#,";
             else
-                ans.append(to_string(currnode->val) + ',');
+                ans += (to_string(currnode->val) + ",");
             if(currnode != NULL)
             {
                 q.push(currnode->left);
