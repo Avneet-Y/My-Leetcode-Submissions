@@ -19,6 +19,8 @@ public:
         TreeNode *curr = root;
         while(true)
         {
+            if(curr->val == val)
+                return root;
             if(curr->val <= val)
             {
                 if(curr->right != NULL)
