@@ -19,18 +19,42 @@ public:
 class Solution {
 public:
     Node* connect(Node* root) {
-        if(root == NULL)
+        // if(root == NULL)
+        //     return NULL;
+        // if(root -> left != NULL)   
+        // {
+        //     root->left->next = root->right;  //2 ka next connected to 3 , root(1)
+        // }
+        // if(root->right != NULL && root->next != NULL)  
+        // {
+        //     root->right->next = root->next->left;  //root(2) 5 ka next connect to 2 ke 
+        // }                                          //next i.e 3 ka left
+        // connect(root->left);
+        // connect(root->right);
+        // return root;
+        if (root == NULL) 
             return NULL;
-        if(root -> left != NULL)   
+        queue<Node*> q;
+        q.push(root);
+
+        while (!q.empty()) 
         {
-            root->left->next = root->right;  //2 ka next connected to 3 , root(1)
+            int size = q.size();
+            for (int i = 0; i < size; i++) 
+            {
+                Node* node = q.front();
+                q.pop();
+
+                if (i < size - 1) 
+                    node->next = q.front();
+                
+                if (node->left != NULL) 
+                    q.push(node->left);
+                
+                if (node->right != NULL) 
+                    q.push(node->right);              
+            }
         }
-        if(root->right != NULL && root->next != NULL)  
-        {
-            root->right->next = root->next->left;  //root(2) 5 ka next connect to 2 ke 
-        }                                          //next i.e 3 ka left
-        connect(root->left);
-        connect(root->right);
         return root;
     }
 };
