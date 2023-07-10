@@ -1,32 +1,26 @@
 class Solution {
 public:
-    void solve(vector<int> &nums, vector<vector<int>> &ans, vector<int> output, int index)
+    void solve(set<vector<int>> &st, vector<int> &temp, vector<int>& nums, int i)
     {
-        if(index >= nums.size())
+        if(i >= nums.size())
         {
-            bool isPresent = find(ans.begin(), ans.end(), output) != ans.end();
-            if(isPresent == false)
-            {
-                ans.push_back(output);
-            }
+            st.insert(temp);
             return;
         }
-        
-        //exclude
-        solve(nums, ans, output, index+1);
-        
-        //include
-        int ele = nums[index];
-        output.push_back(ele);
-        solve(nums, ans, output, index+1);
+        temp.push_back(nums[i]);
+        solve(st, temp, nums, i+1);
+        temp.pop_back();
+        solve(st, temp, nums, i+1);   
     }
-    
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        
-        vector<int> output;
         vector<vector<int>> ans;
+        vector<int> temp;
+        set<vector<int>> st;
         sort(nums.begin(), nums.end());
-        solve(nums, ans, output, 0);
+        solve(st, temp, nums, 0);
+        for(auto it : st)
+            ans.push_back(it);
         return ans;
+        
     }
 };
