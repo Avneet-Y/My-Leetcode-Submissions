@@ -14,6 +14,7 @@ public:
         
         while(true)
         {
+            cout<<"K = "<<k<<" fact = "<<fact;
             ans = ans + (to_string(nums[k/fact]));
             nums.erase(nums.begin() + k/fact);
             if(nums.size() == 0)
