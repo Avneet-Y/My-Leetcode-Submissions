@@ -9,38 +9,43 @@ using namespace std;
 
 class Solution {
   public:
-  void dfs(int row, int col,vector<vector<int>>& grid, vector<vector<int>>& visited, vector<pair<int, int>>& vec, int baserow, int basecol)
+  
+  void dfs(int row, int col, vector<pair<int, int>> &vec, vector<vector<int>>& grid, 
+  vector<vector<int>> &visited, int baserow, int basecol)
   {
+      visited[row][col] = 1;
       int n = grid.size();
       int m = grid[0].size();
-      visited[row][col] = 1;
-      vec.push_back({row - baserow, col - basecol});
-      int delrow[] = {-1, 0, 1, 0};
-      int delcol[] = {0, 1, 0, -1};
+      vec.push_back({row-baserow, col-basecol});
+      
+      int delrow[] = {1,-1,0,0};
+      int delcol[] = {0,0,-1,1}; 
       for(int i=0; i<4; i++)
       {
           int nrow = row + delrow[i];
-          int ncol = col + delcol[i];
-          if(nrow>=0 && nrow<n && ncol >= 0 && ncol < m && visited[nrow][ncol] == 0 && grid[nrow][ncol] == 1)
+          int ncol = delcol[i] + col;
+          
+          if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && visited[nrow][ncol] == 0 && grid[nrow][ncol] == 1)
           {
-              dfs(nrow, ncol, grid, visited, vec, baserow, basecol);
+              dfs(nrow, ncol, vec, grid, visited, baserow, basecol);
           }
       }
   }
+ 
     int countDistinctIslands(vector<vector<int>>& grid) {
         // code here
         int n = grid.size();
         int m = grid[0].size();
         vector<vector<int>> visited(n, vector<int>(m, 0));
         set<vector<pair<int, int>>> st;
-        for(int i = 0; i<n; i++)
+        for(int i=0; i<n; i++)
         {
             for(int j=0; j<m; j++)
             {
-                if(visited[i][j] == 0 and grid[i][j] == 1)
+                if(grid[i][j] == 1 && visited[i][j] == 0)
                 {
                     vector<pair<int, int>> vec;
-                    dfs(i, j, grid, visited, vec, i, j);
+                    dfs(i, j, vec, grid, visited, i, j);
                     st.insert(vec);
                 }
             }
