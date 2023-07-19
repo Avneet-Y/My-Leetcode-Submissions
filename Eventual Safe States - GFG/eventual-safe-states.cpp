@@ -8,109 +8,54 @@ using namespace std;
 // } Driver Code Ends
 // User function Template for C++
 
-// class Solution {
-//   public:
-//   bool dfscheck(int node, vector<int> adj[], int visited[], int pathvis[], int check[])
-//   {
-//       visited[node] = 1;
-//       pathvis[node] = 1;
-//       check[node] = 0;
-      
-//       for(auto it : adj[node])
-//       {
-//           if(visited[it] == 0)
-//           {
-//               if(dfscheck(it, adj, visited, pathvis, check) == true)
-//               {
-//                   check[node] = 0;
-//                   return true;
-//               }
-//           }
-//           else if(pathvis[it] == 1)
-//           {
-//                   check[node] = 0;
-//                   return true;
-//           }
-//       }
-      
-//       check[node] = 1;
-//       pathvis[node] = 0;
-//       return false;
-//   }
-  
-//     vector<int> eventualSafeNodes(int V, vector<int> adj[]) {
-//         // code here
-//         int visited[V] = {0};
-//         int pathvis[V] = {0};
-//         int check[V] = {0};
-//         vector<int> safenode;
-//         for(int i=0; i<V; i++)
-//         {
-//             if(visited[i] == 0)
-//             {
-//                 dfscheck(i, adj, visited, pathvis, check);
-//             }
-//         }
-//         for(int i=0; i<V; i++)
-//         {
-//             if(check[i] == 1)
-//             {
-//                 safenode.push_back(i);
-//             }
-//         }
-//         return safenode;
-//     }
-// };
-
 class Solution {
   public:
-  bool dfscheck(int node, vector<int> adj[], int visited[], int pathvis[])
+  bool dfs(int node, int visited[], int path[], int check[], vector<int> adj[])
   {
       visited[node] = 1;
-      pathvis[node] = 1;
+      path[node] = 1;
+      check[node] = 0;
       
       for(auto it : adj[node])
       {
           if(visited[it] == 0)
           {
-              if(dfscheck(it, adj, visited, pathvis) == true)
+              if(dfs(it, visited, path, check, adj) == true)
               {
-                  pathvis[node] = 1;
+                  check[node] = 0;
                   return true;
               }
           }
-          else if(pathvis[it] == 1)
+          else if(path[it] == 1)
           {
-                  pathvis[node] = 1;
-                  return true;
+              check[node] = 0;
+              return true;
           }
       }
-      
-      pathvis[node] = 0;
+      path[node] = 0;
+      check[node] = 1;
       return false;
+      
   }
-  
     vector<int> eventualSafeNodes(int V, vector<int> adj[]) {
         // code here
+        vector<int> ans;
         int visited[V] = {0};
-        int pathvis[V] = {0};
+        int path[V] = {0};
+        int check[V] = {0};
         
-        vector<int> safenode;
         for(int i=0; i<V; i++)
         {
-            if(visited[i] == 0)
-            {
-                dfscheck(i, adj, visited, pathvis);
-            }
+           dfs(i, visited, path, check, adj);
+    
         }
         for(int i=0; i<V; i++)
         {
-            if(pathvis[i] == 0)
-            {
-                safenode.push_back(i);
-            }
+            if(check[i] == 1)
+                ans.push_back(i);
         }
-        return safenode;
+        
+        return ans;
     }
 };
 
