@@ -1,42 +1,26 @@
 class Solution {
 public:
-    bool check(string s1, string s2, unordered_map<char, int> mp)
-    {
-        int i = 0;
-        int j = 0;
-        while(i < s1.size() && j < s2.size())
-        {
-            if(s1[i] != s2[j])
-            {
-                if(mp[s1[i]] < mp[s2[j]])
-                    return true;
-                else
-                    return false;
-            }
-            i++;
-            j++;
-        }
-        if(s1.size() <= s2.size())
-            return true;
-        return false;
-    }
-    
     bool isAlienSorted(vector<string>& words, string order) {
-        unordered_map<char, int> mp;
-        int weight = 1;
+       vector<pair<string,string>> vec;
+       unordered_map<char, char> mp;
+
+       for(int i=0; i < order.size(); i++) 
+           mp[order[i]] = char(i +'a');
+
+       for(int i=0; i<words.size(); i++)
+       {
+           string temp;
+           for(auto &it : words[i]) 
+               temp.push_back(mp[it]);
+           vec.push_back({temp, words[i]});
+       }
+        
+       sort(vec.begin(), vec.end());
+
+       for(int i=0; i<words.size(); i++)
+           if(words[i] != vec[i].second) 
+               return false;
     
-        for(auto it : order)
-        {
-            mp[it] = weight;
-            weight++;
-        }
-        for(int i=0; i<words.size()-1; i++)
-        {
-            string first = words[i];
-            string second = words[i+1];
-            if(check(first, second, mp) == false)
-                return false;
-        }
-        return true;
+       return true;
     }
 };
