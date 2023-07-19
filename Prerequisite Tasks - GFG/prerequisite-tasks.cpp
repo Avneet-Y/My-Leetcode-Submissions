@@ -5,16 +5,15 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
 public:
-	bool isPossible(int N, vector<pair<int, int> >& prerequisites) {
+	bool isPossible(int N,int P, vector<pair<int, int> >& prerequisites) {
 	    // Code here
 	    vector<int> adj[N];
-	    int indegree[N] = {0};
-	    
 	    for(auto it : prerequisites)
 	    {
 	        adj[it.first].push_back(it.second);
+	        
 	    }
-	    
+	    int indegree[N] = {0};
 	    for(int i=0; i<N; i++)
 	    {
 	        for(auto it : adj[i])
@@ -23,33 +22,27 @@ public:
 	        }
 	    }
 	    queue<int> q;
-	    int count = 0;
 	    for(int i=0; i<N; i++)
 	    {
 	        if(indegree[i] == 0)
-	        {
-	           q.push(i);
-            }
+	            q.push(i);
 	    }
-	    
-	   while(!q.empty())
-	   {
-	       int node = q.front();
-	       q.pop();
-	       count++;
-	       for(auto it : adj[node])
-	       {
-	           indegree[it]--;
-	           if(indegree[it] == 0)
-	           {
+	    vector<int> topolog;
+	    while(!q.empty())
+	    {
+	        int node = q.front();
+	        q.pop();
+	        topolog.push_back(node);
+	        for(auto it : adj[node])
+	        {
+	            indegree[it]--;
+	            if(indegree[it] == 0)
 	                q.push(it);
-	           }
-	       }
-	   }
-	   if(count == N)
-	       return true;
-	   return false;
-	    
+	        }
+	    }
+	    if(topolog.size() == N)
+	        return true;
+	    return false;
 	}
 };
 
@@ -70,7 +63,7 @@ int main(){
         // string s;
         // cin>>s;
         Solution ob;
-        if (ob.isPossible(N, prerequisites))
+        if (ob.isPossible(N,P, prerequisites))
             cout << "Yes";
         else
             cout << "No";
