@@ -1,6 +1,6 @@
 class Solution {
 public:
-    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+vector<vector<string>> groupAnagrams(vector<string>& strs) {
         vector<vector<string>> ans;
         
         int n = strs.size();
@@ -17,6 +17,6 @@ public:
         {
             ans.push_back(it->second);
         }
-        return ans;
+        return ans; 
     }
 };
