@@ -12,7 +12,6 @@ public:
                 break;
             }
         }
-        
         if(ind == -1)
         {
             reverse(nums.begin(), nums.end());
@@ -26,8 +25,6 @@ public:
                 break;
             }
         }
-        
-        reverse(nums.begin() + ind + 1, nums.end());
-        
+        reverse(nums.begin() + ind  + 1, nums.end());
     }
 };
