@@ -12,12 +12,13 @@ public:
             swap(nums[i], nums[ind]);
             solve(ans, nums, ind+1);
             swap(nums[i], nums[ind]);
-        } 
+        }
     }
     
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>> ans;
         solve(ans, nums, 0);
         return ans;
+        
     }
 };
