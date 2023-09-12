@@ -26,7 +26,6 @@ public:
                 {
                     st.insert(it.second);
                 }
-                
             }
         }
         return count;
