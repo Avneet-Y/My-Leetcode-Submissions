@@ -98,19 +98,28 @@ public:
     int maximalSquare(vector<vector<char>>& matrix) {
         int n = matrix.size();
         int m = matrix[0].size();
-        vector<int> height(m, 0);
-        int maxsqar = 0;
-        for(int i=0; i<n; i++)
+        vector<int> vec;
+        for(int j=0; j<m; j++)
+        {
+            vec.push_back(matrix[0][j] - '0');     
+        }
+        
+        int maxar = mah(vec);
+        for(int i=1; i<n; i++)
         {
             for(int j=0; j<m; j++)
             {
-                if(matrix[i][j] == '1') 
-                    height[j]++;
-                else 
-                    height[j] = 0;
+                if(matrix[i][j] == '0')
+                {
+                    vec[j] = 0;
+                }
+                else
+                {
+                    vec[j] = vec[j] + (matrix[i][j] - '0');
+                }
             }
-            maxsqar = max(maxsqar, mah(height));
+            maxar = max(maxar, mah(vec));
         }
-        return maxsqar;
+        return maxar;
     }
 };
