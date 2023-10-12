@@ -1,28 +1,35 @@
 class Solution {
 public:
-    bool ismatching(char a, char b)
-    {
-        if(a == '{' && b == '}' || a == '(' && b == ')' || a == '[' && b == ']' )
-            return true;
-        return false;
-    }
     bool isValid(string s) {
         int n = s.size();
-        stack<int> st;
+        stack<char> st;
         for(int i=0; i<n; i++)
         {
-            if(s[i] == '(' || s[i] == '{' || s[i] == '[' )
+            if(s[i] == '(' || s[i] == '[' ||s[i] == '{')
+            {
                 st.push(s[i]);
+            }
             else
             {
-                if(st.empty() == true)
+                if(st.empty())
+                {
                     return false;
-                else if(ismatching(st.top(), s[i]) ==  false)
-                    return false;
-                else
+                }
+                char ch = st.top();
+                //st.pop();
+                if(s[i] == ')' && ch =='(' || s[i] == ']' && ch =='[' || s[i] == '}' && ch =='{')
+                {
                     st.pop();
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
-        return (st.empty() == true);
+        if(st.empty())
+            return true;    
+        else
+            return false;
     }
 };
