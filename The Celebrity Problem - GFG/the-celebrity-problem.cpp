@@ -14,7 +14,7 @@ class Solution
     int celebrity(vector<vector<int> >& M, int n) 
     {
         // code here 
-        int count = 0;
+    
         stack<int> st;
         for(int i=0; i<n; i++)
         {
@@ -26,28 +26,30 @@ class Solution
             st.pop();
             int j = st.top();
             st.pop();
-             
-            if(M[i][j] == 1)  //if i knows j then i is not a celebrity
+            
+            if(M[i][j] == 1)
             {
                 st.push(j);
             }
             else
             {
-                st.push(i); //if j knows i then j is not a celebrity
+                st.push(i);
             }
         }
-        int potential = st.top();
+        int possible_celeb = st.top();
         st.pop();
         for(int i=0; i<n; i++)
         {
-            if(i != potential)
+            if(i != possible_celeb)
             {
-                if(M[i][potential] == 0 || M[potential][i] == 1)
+                if(M[i][possible_celeb] == 0 || M[possible_celeb][i] == 1)
+                {
                     return -1;
+                }
             }
         }
-        return potential;
-        }
+        return possible_celeb;
+    }
 };
 
 //{ Driver Code Starts.
