@@ -3,35 +3,32 @@ public:
     string customSortString(string order, string s) {
         int n1 = order.size();
         int n2 = s.size();
-        map<char, int> mp;
         string ans = "";
-        
+        map<char, int> mp;
         for(auto it : s)
             mp[it]++;
-        
-        for(auto it : order)
+        for(int i=0; i<n1; i++)
         {
-            if(mp.find(it) != mp.end())
+            char ele = order[i];
+            if(mp.find(ele) != mp.end())
             {
-                while(mp[it]--)
+                while(mp[ele]--)
                 {
-                    ans.push_back(it);
+                    ans.push_back(ele);
                 }
-                mp.erase(it);
+                mp.erase(ele);
             }
         }
-        
         for(auto it = mp.begin(); it != mp.end(); it++)
         {
             char ele = it->first;
-            int count = it->second;
-            while(count--)
+            int freq = it->second;
+            for(int i=0; i<freq; i++)
             {
                 ans += ele;
             }
             mp.erase(ele);
         }
-        return ans;   
-        
+        return ans;
     }
 };
