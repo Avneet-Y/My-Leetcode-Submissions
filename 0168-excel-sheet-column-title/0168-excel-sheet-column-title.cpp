@@ -2,14 +2,15 @@ class Solution {
 public:
     string convertToTitle(int columnNumber) {
         string ans = "";
-        while (columnNumber > 0) 
+        //string temp = "ABCDEFGHIJKLMNEOPQRSTUVWXYZ";
+        int i = columnNumber;
+        while(i > 0)
         {
-            columnNumber--;  //as 0 based indexing bcz 0=A
-            char currchar = 'A' + (columnNumber % 26);
-            ans = currchar + ans;
-            columnNumber /= 26;
+            i--;   //as 0 based indexinx A=0
+            char currchar = 'A' + (i % 26);
+            ans = currchar + ans; 
+            i /= 26;
         }
         return ans;
-
     }
 };
