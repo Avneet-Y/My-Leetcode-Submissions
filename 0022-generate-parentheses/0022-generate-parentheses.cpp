@@ -1,6 +1,5 @@
 class Solution {
 public:
-    
     void solve(int open ,int close, string output, vector<string> &vec)
     {
         if(open == 0 && close == 0)
@@ -29,5 +28,6 @@ public:
         string output = "";
         solve(open, close, output, vec);
         return vec;
+        
     }
 };
