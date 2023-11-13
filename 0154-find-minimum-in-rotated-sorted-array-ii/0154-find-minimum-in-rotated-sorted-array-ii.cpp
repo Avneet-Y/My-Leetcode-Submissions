@@ -2,10 +2,10 @@ class Solution {
 public:
     int findMin(vector<int>& nums) {
         int n = nums.size();
-        int ans = 0;
         int start = 0;
         int end = n-1;
-        int next, prev;
+        //This is also correct
+        /*
         while (start < end) 
         {
             int mid = start + (end - start) / 2;
@@ -28,6 +28,24 @@ public:
             else if(nums[mid] >= nums[start]) 
             {
                 start = mid + 1;
+            }
+        }
+        return nums[start];
+        */
+        while(start < end)
+        {
+            int mid = start + (end-start)/2;
+            if(nums[end] == nums[mid])
+            {
+                end = end-1;   //linearly decreasing range from last
+            }
+            else if(nums[end] > nums[mid])
+            {
+                end = mid;
+            }
+            else if(nums[end] < nums[mid])
+            {
+                start = mid+1;
             }
         }
         return nums[start];
