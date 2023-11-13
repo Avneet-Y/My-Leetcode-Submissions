@@ -39,11 +39,11 @@ public:
             {
                 end = end-1;   //linearly decreasing range from last
             }
-            else if(nums[end] > nums[mid])
+            else if(nums[end] > nums[mid])  //disregard right part
             {
                 end = mid;
             }
-            else if(nums[end] < nums[mid])
+            else if(nums[end] < nums[mid])  //disregard left part
             {
                 start = mid+1;
             }
