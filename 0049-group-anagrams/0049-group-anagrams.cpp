@@ -1,9 +1,8 @@
 class Solution {
 public:
-vector<vector<string>> groupAnagrams(vector<string>& strs) {
-        vector<vector<string>> ans;
-        
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
         int n = strs.size();
+        vector<vector<string>> ans;
         unordered_map<string, vector<string>> mp;
         
         for(int i=0; i<n; i++)
@@ -12,11 +11,10 @@ vector<vector<string>> groupAnagrams(vector<string>& strs) {
             sort(temp.begin(), temp.end());
             mp[temp].push_back(strs[i]);
         }
-            
         for(auto it = mp.begin(); it != mp.end(); it++)
         {
             ans.push_back(it->second);
         }
-        return ans; 
+        return ans;
     }
 };
